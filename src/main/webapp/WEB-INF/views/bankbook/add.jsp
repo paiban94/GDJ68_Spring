@@ -14,7 +14,7 @@
 	
 	<h1 >Add Page</h1>
 	
-	<form action="./add.do" method="post">
+	<form action="./add" method="post">
 		상품명<input type="text" name="bookName"><br>
 		이자율<input type="text" name="bookRate"><br>
 		내용 <textarea rows="" cols="" name="bookContents">${dto.bookContents}</textarea>

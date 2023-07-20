@@ -24,7 +24,7 @@
 			<tbody>
 			<c:forEach items="${list}" var="d" varStatus="i">
 				<tr>
-					<td><a href="./detail.do?bookNum=${d.bookNum}">${d.bookName}</a></td>
+					<td><a href="./detail?bookNum=${d.bookNum}">${d.bookName}</a></td>
 					<td>${d.bookRate} ${i.index}</td>
 				</tr>
 			</c:forEach>
@@ -32,7 +32,7 @@
 		
 		</table>
 		
-		<a class="btn btn-danger" href="./add.do">상품등록</a>
+		<a class="btn btn-danger" href="./add">상품등록</a>
 		<!-- <a  class="btn btn-danger" "./add.do">상품등록</a> -->
 	
 	</section>		
