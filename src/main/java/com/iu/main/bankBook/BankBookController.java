@@ -16,12 +16,15 @@ public class BankBookController {
 	@RequestMapping(value = "list.do", method = RequestMethod.GET)
 	public String getList()throws Exception{
 		System.out.println("list");
-		bankBookService.service();		
+		
 		return "bankbook/list"; // list.jsp 찾아가기
 	}
 	@RequestMapping(value = "detail")
-	public String getDetail()throws Exception{
-		System.out.println("detail");
+	public String getDetail(BankBookDTO bankBookDTO)throws Exception{
+	//	bankBookDTO = bankBookService.getDetail(bankBookDTO);
+	//	bankBookDTO=bankBookService.getDetail(bankBookDTO);
+		bankBookDTO = bankBookService.getDetail(bankBookDTO);
+		System.out.println(bankBookDTO.getBookName());
 		return "bankbook/detail";
 	}
 }

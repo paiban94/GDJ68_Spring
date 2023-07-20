@@ -9,10 +9,10 @@ public class BankBookService {
 	@Autowired // ex) BankBookDAO 타입으로 된 객체를 찾아서 넣어주라는 뜻
 	private BankBookDAO bankBookDAO; //서비스는 dao에 의존적
 	
-	
-	public void service() {/* 서비스 메서드생성*/
-		System.out.println("service"); 
-		bankBookDAO.dao();
-	
+	public BankBookDTO getDetail(BankBookDTO bankBookDTO) throws Exception{
+		return bankBookDAO.getDetail(bankBookDTO);
 	}
+	
+	
+	
 }
