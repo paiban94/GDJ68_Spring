@@ -24,7 +24,7 @@ public class BankBookController {
 		return "bankbook/list"; // list.jsp 찾아가기
 	}
 	@RequestMapping(value = "detail")
-	public ModelAndView getDetail(BankBookDTO bankBookDTO, ModelAndView mv)throws Exception{
+	public ModelAndView	 getDetail(BankBookDTO bankBookDTO, ModelAndView mv)throws Exception{
 	//	bankBookDTO = bankBookService.getDetail(bankBookDTO);
 	//	bankBookDTO=bankBookService.getDetail(bankBookDTO);
 		bankBookDTO = bankBookService.getDetail(bankBookDTO);
