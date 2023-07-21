@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.iu.main.student.StudentDAO">
+  	
+   	<select id="getStudentList" resultType="com.iu.main.student.StudentDTO" parameterType="com.iu.main.student.StudentDTO">
+ 		SELECT STUDENTNUM, STUDENTNAME, STUDENTKOR, STUDENTENG, STUDENTMATH  FROM STUDENT ORDER BY STUDENTNUM ASC
+ 	</select>
+  
+  	<select id="getStudentDetail" resultType="com.iu.main"></select>
+  
+  
+  
+  </mapper>

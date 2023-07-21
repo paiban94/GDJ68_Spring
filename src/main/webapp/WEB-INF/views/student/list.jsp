@@ -14,36 +14,34 @@
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
 	<section class="container mt-5">
-		<h1 class="mb-4 text-center">상품 목록</h1>
-	
-		
+		<h1 class="mb-4 text-center">학생 목록</h1>
 		<table class="table table-dark table-hover">
 		<thead>
-			<th>상품명</th><th>이자율</th>
-		</thead>		
-			<tbody>
+			<th>번호</th>
+			<th>이름</th>
+			<th>국어</th>
+			<th>영어</th>
+			<th>수학</th>
+
+					
+		<tbody>
 			<c:forEach items="${list}" var="d" varStatus="i">
-				<tr>
-					<td><a href="./detail?bookNum=${d.bookNum}">${d.bookName}</a></td>
-					<td>${d.bookRate} ${i.index}</td>
-				</tr>
+						<tr>
+								<td>${d.studentNum} </td>
+								<td>${d.studentName} </td>
+								<td>${d.studentKor} </td>
+								<td>${d.studentEng} </td>
+								<td>${d.studentMath} </td>													
+						</tr>
 			</c:forEach>
 			</tbody>
 		
-		</table>
+			</table>
 		
-		<a class="btn btn-danger" href="./add">상품등록</a>
+			<a class="btn btn-danger" href="./add">학생등록</a>
 		<!-- <a  class="btn btn-danger" "./add.do">상품등록</a> -->
 	
 	</section>
 		
-	
-	
-<!-- 
-	<c:forEach begin="1" end="10" step="2" var="num">
-	<h1>${num}</h1>
-	</c:forEach>
- -->
- 
-</body>
-</html>
+		
+		<table class="table table-dark table-hover">

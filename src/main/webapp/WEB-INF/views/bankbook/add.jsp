@@ -33,7 +33,8 @@
 		</p>
 		
 		<button class="btn btn-primary" type="submit">등록</button>
-
+		
+		
 	</form>
 	
 </body>

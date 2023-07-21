@@ -2,8 +2,10 @@ package com.iu.main.bankBook;
 
 import java.sql.Connection;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.naming.PartialResultException;
 
@@ -16,11 +18,19 @@ public class BankBookDAO {
 		
 		@Autowired
 		private SqlSession sqlSession;
-		private final String NAMESPACE="com.iu.main.bankBook.BankBookDAO.";
+		private final String NAMESPACE="com.iu.main.bankBook.BankBookDAO."; /* . 은 경*/
 		
 		
-		//List
-
+	//List
+	//	public List<E>t
+		
+		
+		public List<BankBookDTO>getList() throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getList");
+	}  
+		
+		
+		
 	//detail
 	public BankBookDTO getDetail(BankBookDTO bankBookDTO) throws Exception{
 	/*	//1.DB 연결
@@ -45,13 +55,22 @@ public class BankBookDAO {
 //			bankBookDTO=null;
 //		} //false 데이터없다
 		return sqlSession.selectOne(NAMESPACE+"getDetail", bankBookDTO);
-	
+	     // sqlSession 멥퍼의 위치, NAMESPACE 멥퍼의 경로,getDetail 멥퍼의 아이디
 	}
 	//add
-	
+	public int setAdd(BankBookDTO bankBookDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setAdd", bankBookDTO);
+	}
 	//update
-	
+	public int setUpdate(BankBookDTO bankBookDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"setUpdate", bankBookDTO);
+	}
 	//delete
+	public int setDelete (Long num) throws Exception{
+		return sqlSession.delete(NAMESPACE+"setDelete", num);
+	}
+	
+	
 	
 }
 
