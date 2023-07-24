@@ -16,33 +16,20 @@
 	
 	<%-- ${} --%>
 	<!-- Getter 이름 : 메서드에서 get을 제외하고 첫번째글자를 소문자로 바꾼것 -->
-	<h1>${requestScope.dto.studentName}</h1>
+	
 	
 	<div>
-		${dto.bookContents}
+		${dto.studentNum}
 	</div>
 	
-	<h1>${dto.bookRate} </h1>
+	<div>
+		${dto.studentName}
+	</div>
 	
-	<c:choose>
-		<c:when test="${dto.bookSale eq 1}">
-			<h1>판매중</h1>
-		</c:when>
-		<c:otherwise>
-			<h1>판매종료</h1>
-		</c:otherwise>
-	</c:choose>
+	<h1>${dto.studentKor} </h1>
+	<h1>${dto.studentEng} </h1>
+	<h1>${dto.studentMath} </h1>
 	
-	<a href="./update?bookNum=${dto.bookNum}">수정</a>
-	<a href="./delete?bookNum=${dto.bookNum}">삭제</a>
-	
-<%-- 	
-	<c:if test="${dto.bookSale eq 1}">
-		<h1>판매중</h1>
-	</c:if>
-	<c:if test="${dto.bookSale eq 0}">
-		<h1>판매종료</h1>
-	</c:if>
---%>
+
 </body>
 </html>

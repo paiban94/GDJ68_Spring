@@ -28,7 +28,7 @@
 			<c:forEach items="${list}" var="d" varStatus="i">
 						<tr>
 								<td>${d.studentNum} </td>
-								<td>${d.studentName} </td>
+								<td a href="/student/detail?studentNum=${d.studentNum}">${d.studentName}</a></td>
 								<td>${d.studentKor} </td>
 								<td>${d.studentEng} </td>
 								<td>${d.studentMath} </td>													

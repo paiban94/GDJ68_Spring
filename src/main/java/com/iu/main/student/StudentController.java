@@ -2,11 +2,15 @@ package com.iu.main.student;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.iu.main.bankBook.BankBookDTO;
 
 
 
@@ -23,12 +27,20 @@ public class StudentController {
 		List<StudentDTO> st=studentService.getStudentList();
 		model.addAttribute("list", st);
 		return "student/list";
-
-//		@RequestMapping(value="detail")
-//		public void getStudentDetail () throws Exception{
-//			
-//		}
+		} //ㅜㅜ
 		
+		@RequestMapping(value = "detail", method = RequestMethod.GET)
+		public ModelAndView getSDetail(StudentDTO studentDTO, ModelAndView mv)throws Exception{
+		studentDTO =  studentService.getStudentDetail(studentDTO);
+		System.out.println(studentDTO.getStudentName());
+		mv.addObject("dto", studentDTO);
+		mv.setViewName("student/detail");
+		return mv;
+		
+		
+	
 		}
 
-}
+		
+		
+	}

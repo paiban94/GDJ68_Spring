@@ -9,7 +9,9 @@
  		SELECT STUDENTNUM, STUDENTNAME, STUDENTKOR, STUDENTENG, STUDENTMATH  FROM STUDENT ORDER BY STUDENTNUM ASC
  	</select>
   
-  
+  	<select id="getStudentDetail" resultType="com.iu.main.student.StudentDTO" parameterType="com.iu.main.student.StudentDTO">
+  		SELECT * FROM WHERE STUDENTNUM=#{studentNum}
+  	</select>
   
   
   

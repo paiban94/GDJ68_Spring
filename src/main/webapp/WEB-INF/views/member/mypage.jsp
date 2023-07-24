@@ -13,8 +13,19 @@
 	<h1 class="my-4">My Page</h1>
 
 	<div>
+	<p>
 		${member.id} : ${sessionScope.member.name}
+	</p>
+	<p>
+		${member.email} 
+	</p>
+	<p>
+		${member.birth}
+	</p>
 	</div>
+	
+	<a class="btn btn-primary" href="./memberUpdate">회원수정</a>
+	
 
 </body>
 </html>

@@ -24,5 +24,8 @@ public class StudentDAO {
 			return sqlSession.selectList(NAMESPACE+"getStudentList");		
 			}
 
-
+		public StudentDTO getStudentDetail(StudentDTO studentDTO) throws Exception {
+			return sqlSession.selectOne(NAMESPACE+"getStudentDetail", studentDTO);
+			
+		}
 }

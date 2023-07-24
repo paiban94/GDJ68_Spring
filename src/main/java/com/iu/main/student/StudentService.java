@@ -13,7 +13,9 @@ public class StudentService {
 	public List<StudentDTO> getStudentList() throws Exception{
 		return studentDAO.getStudentList();
 	}
-
+	public StudentDTO getStudentDetail(StudentDTO studentDTO)throws Exception {
+			return studentDAO.getStudentDetail(studentDTO);
+	}
 
 
 }

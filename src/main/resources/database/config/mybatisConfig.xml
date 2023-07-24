@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE configuration
+				  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+				  "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+
+<configuration>
+	<!-- type에 적힌 패키지-파일 이름을 alias에 적힌 명칭으로 부르자 라는뜻 -->
+	<!--  보통 마지막에 적힌 클래스의 이름을 명칭으로 등록한다 -->
+	
+	<typeAliases >
+		<typeAlias type="com.iu.main.bankBook.BankBookDTO" alias="BankBookDTO"/>
+		<typeAlias type="com.iu.main.member.MemberDTO" alias="MemberDTO"/>
+		<typeAlias type="java.lang.Long" alias="Long"/>
+	</typeAliases>
+
+
+
+</configuration>				  
+		  

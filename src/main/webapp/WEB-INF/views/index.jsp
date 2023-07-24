@@ -13,6 +13,11 @@
 </head>
 <body>
  	<c:import url="./temp/header.jsp"></c:import>
-<h1>index 연습</h1>
+	<c:if test="${sessionScope.member ne null}">
+		<h1>로그인 상태</h1>
+	</c:if>
+	<c:if test="${empty member}">
+		<h1>비로그인 상태</h1>
+	</c:if>
 </body>
 </html>
