@@ -23,10 +23,11 @@ public class StudentController {
 		List<StudentDTO> st=studentService.getStudentList();
 		model.addAttribute("list", st);
 		return "student/list";
-		
-		public void getStudentDetail () throws Exception{
-			
-		}
+
+//		@RequestMapping(value="detail")
+//		public void getStudentDetail () throws Exception{
+//			
+//		}
 		
 		}
 

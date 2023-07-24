@@ -9,7 +9,7 @@
  		SELECT STUDENTNUM, STUDENTNAME, STUDENTKOR, STUDENTENG, STUDENTMATH  FROM STUDENT ORDER BY STUDENTNUM ASC
  	</select>
   
-  	<select id="getStudentDetail" resultType="com.iu.main"></select>
+  
   
   
   
