@@ -18,14 +18,8 @@
 	<!-- Getter 이름 : 메서드에서 get을 제외하고 첫번째글자를 소문자로 바꾼것 -->
 	
 	
-	<div>
-		${dto.studentNum}
-	</div>
-	
-	<div>
-		${dto.studentName}
-	</div>
-	
+	<h1>${dto.studentName}</h1>	
+	<h1>${dto.studentNum}</h1>
 	<h1>${dto.studentKor} </h1>
 	<h1>${dto.studentEng} </h1>
 	<h1>${dto.studentMath} </h1>
