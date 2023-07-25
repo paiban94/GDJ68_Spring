@@ -3,12 +3,12 @@ package com.iu.main;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-//Add_MyBatis
+
 
 @Controller
 @RequestMapping("/*")
 public class Frontcontroller {
-	
+	//Add_MyBatis
 	
 	@RequestMapping(value = "/" )
 	public String getIndex () throws Exception{
