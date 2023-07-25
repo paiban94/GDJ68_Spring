@@ -15,7 +15,7 @@
 	<c:import url="../temp/header.jsp"></c:import>
 	<section class="container mt-5">
 		<h1 class="mb-4 text-center">학생 목록</h1>
-		<table class="table table-dark table-hover">
+		<table class="table table-warning table-hover">
 		<thead>
 			<th>번호</th>
 			<th>이름</th>

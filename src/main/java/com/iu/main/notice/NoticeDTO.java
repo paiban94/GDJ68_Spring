@@ -2,7 +2,9 @@ package com.iu.main.notice;
 
 import java.sql.Date;
 
-public class NoticeDTO {
+
+
+public class NoticeDTO  {
 	
 	private Long noticeNo;
 	private String noticeSubject;
