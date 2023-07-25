@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/*")
 public class Frontcontroller {
+
 	//Add_MyBatis
+
+	//Add_Board
+
 	
 	@RequestMapping(value = "/" )
 	public String getIndex () throws Exception{

@@ -15,7 +15,7 @@
 	<c:import url="../temp/header.jsp"></c:import>
 	<section class="container mt-5">
 		<h1 class="mb-4 text-center">학생 목록</h1>
-		<table class="table table-dark table-hover">
+		<table class="table table-warning table-hover">
 		<thead>
 			<th>번호</th>
 			<th>이름</th>
@@ -27,8 +27,9 @@
 		<tbody>
 			<c:forEach items="${list}" var="d" varStatus="i">
 						<tr>
-								<td>${d.studentNum} </td>
-								<td a href="/student/detail?studentNum=${d.studentNum}">${d.studentName}</a></td>
+								<td><a href="./detail?studentNum=${d.studentNum}">${d.studentNum} </td>
+							<!-- <td <a href="./student/detail?studentNum=${d.studentNum}">${d.studentName}</a></td>-->
+								<td>${d.studentName} }</td>
 								<td>${d.studentKor} </td>
 								<td>${d.studentEng} </td>
 								<td>${d.studentMath} </td>													

@@ -17,7 +17,7 @@
 		<h1 class="mb-4 text-center">상품 목록</h1>
 	
 		
-		<table class="table table-dark table-hover">
+		<table class="table table-warning table-hover">
 		<thead>
 			<th>상품명</th><th>이자율</th>
 		</thead>		
