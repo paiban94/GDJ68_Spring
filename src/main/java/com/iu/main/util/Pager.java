@@ -18,7 +18,15 @@ public class Pager {
 	//끝번호
 	private Long lastNum;
 	
+	//이전 블럭 활성화
+	private boolean pre; // false면 1번블럭, true면 1번 아님
+	//다음 블럭 활성화 
+	private boolean next; // false면 마지막블럭, true 마지막블럭 아님
 	
+	
+	
+
+
 	public Long getStartNum() {
 		return startNum;
 	}
@@ -70,6 +78,21 @@ public class Pager {
 		//3			11			15
 		this.startNum=(curBlock-1)*perBlock+1;
 		this.lastNum=curBlock*perBlock;
+		
+		//이전 블럭 활성화 여부
+		if(curBlock>1) {
+			this.pre=true;					
+		}
+		//다음 블럭 활성화 여부
+		if(curBlock<totalBlock) {
+			this.next=true;
+		}
+		
+		//현재 블럭이 마지막 블럭일때 lastnum을 totalPage숫자로 대입
+		//if(curBlock==totalBlock) {}
+		if(!this.next) {
+			this.lastNum=totalPage;
+		}
 	}
 	
 	
@@ -138,6 +161,23 @@ public class Pager {
 		this.perPage = perPage;
 	}
 
-	
+	public boolean isPre() {
+		return pre;
+	}
+
+
+	public void setPre(boolean pre) {
+		this.pre = pre;
+	}
+
+
+	public boolean isNext() {
+		return next;
+	}
+
+
+	public void setNext(boolean next) {
+		this.next = next;
+	}
 	
 }

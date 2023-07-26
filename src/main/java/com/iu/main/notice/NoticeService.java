@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iu.main.bankBook.BankBookDTO;
+import com.iu.main.util.Pager;
 
 
 
@@ -18,8 +19,14 @@ public class NoticeService {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	public List<NoticeDTO> getlist () throws Exception{
-		return noticeDAO.getlist();
+	public List<NoticeDTO> getlist (Pager pager) throws Exception{
+		
+		pager.makeRowNum();
+		Long total = noticeDAO.getTotal();
+		
+		pager.makePageNum(total);
+		
+		return noticeDAO.getlist(pager);
 	}
 	
 	public int setAdd(NoticeDTO noticeDTO) throws Exception{

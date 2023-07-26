@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.main.bankBook.BankBookDTO;
+import com.iu.main.util.Pager;
 
 
 
@@ -25,10 +26,10 @@ public class NoticeController   {
 	private NoticeService noticeService;
 	
 	@RequestMapping(value="list",  method = RequestMethod.GET)
-	public String getlist(Model model) throws Exception{
-		List<NoticeDTO> ar = noticeService.getlist();
+	public String getlist(Pager pager, Model model) throws Exception{
+		List<NoticeDTO> ar = noticeService.getlist(pager);
 		model.addAttribute("list", ar);
-		//assertNotEquals(0, ar.size()); /*써도되나?*/
+		model.addAttribute("pager",pager);
 		return "board/list";
 	}
 	@RequestMapping(value="add", method = RequestMethod.GET)

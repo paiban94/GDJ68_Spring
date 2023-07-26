@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.iu.main.bankBook.BankBookDTO;
+import com.iu.main.util.Pager;
 
 
 
@@ -23,8 +24,15 @@ public class NoticeDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.iu.main.notice.NoticeDAO.";
 	
-	public List<NoticeDTO>getlist() throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getlist");
+	//total
+	public long getTotal()throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getTotal");
+	}
+	
+	
+	//list
+	public List<NoticeDTO>getlist(Pager pager) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getlist", pager);
 	}
 //	@Test
 //	public void getNoList() throws Exception{
