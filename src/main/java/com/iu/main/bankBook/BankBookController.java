@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.iu.main.util.Pager;
+
 //클래스선언부
 @Controller 
 @RequestMapping("/bankbook/*")/*하나만 들어가는건 value 안써도됨*/
@@ -20,10 +22,11 @@ public class BankBookController {
 	private BankBookService bankBookService; //의존적
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String getList(Model model)throws Exception{
-		List<BankBookDTO> ar=bankBookService.getList();
+	public String getList(Pager pager, Model model)throws Exception{
+		List<BankBookDTO> ar = bankBookService.getList(pager);
 		model.addAttribute("list", ar);
-		return "bankbook/list"; // list.jsp 찾아가기
+		model.addAttribute("pager", pager);
+		return "bankbook/list";
 	}
 	@RequestMapping(value = "detail")
 	public ModelAndView getDetail(BankBookDTO bankBookDTO, ModelAndView mv)throws Exception{

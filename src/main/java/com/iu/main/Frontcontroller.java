@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/*")
 public class Frontcontroller {
 
 	//Add_MyBatis
@@ -18,7 +17,7 @@ public class Frontcontroller {
 	public String getIndex () throws Exception{
 		System.out.println("index");
 	
-		return "/index";
+		return "index";
 	}
 	//home 메서드
 	//  / 주소가 왔을 때 실행, index.jsp 실행
