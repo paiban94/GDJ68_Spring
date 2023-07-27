@@ -4,9 +4,21 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.iu.main.bankBook.BankBookDAO">
-	
-	<select id="getTotal" resultType="Long">
+	<sql id="searchSql">
+			WHERE BOOKNUM>0 
+					 <choose>
+						<when test="kind=='name'">
+						AND BOOKNAME LIKE '%'||#{search}||'%'
+						</when>	
+						<otherwise>
+						AND	BOOKCONTENTS LIKE '%'||#{search}||'%'
+						</otherwise>
+					</choose>	
+	</sql>
+		<!--sql :중복된 조건식을 모아서 넣기   -->
+	<select id="getTotal" parameterType="com.iu.main.util.Pager" resultType="Long">
 		SELECT COUNT(BOOKNUM) FROM BANKBOOK
+		<include refid="searchSql"></include>
 	</select> 
 
  		
@@ -15,7 +27,16 @@
 			(SELECT  ROWNUM R, B.* FROM
 				(
 				SELECT * FROM BANKBOOK 
-				WHERE BOOKNUM>0
+				<include refid="searchSql"></include>
+				<!--<include refid="searchSql" /> 위와 같은 쿼리-->		
+					
+						<!-- <if test="kind== 'name'">
+						AND BOOKNAME LIKE '%검색어%'
+						</if>
+						<if test="kind=='contents'">
+						AND BOOKCONTENTS LIKE '%검색어%'						
+						</if> -->
+						 
 				ORDER BY BOOKNUM DESC
 				) B 
 			)

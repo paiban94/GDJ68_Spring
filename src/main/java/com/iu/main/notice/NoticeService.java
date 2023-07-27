@@ -22,7 +22,7 @@ public class NoticeService {
 	public List<NoticeDTO> getlist (Pager pager) throws Exception{
 		
 		pager.makeRowNum();
-		Long total = noticeDAO.getTotal();
+		Long total = noticeDAO.getTotal(pager);
 		
 		pager.makePageNum(total);
 		

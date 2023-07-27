@@ -25,8 +25,8 @@ public class BankBookDAO {
 		private final String NAMESPACE="com.iu.main.bankBook.BankBookDAO."; /* . 은 경*/
 		
 	//total
-		public Long getTotal()throws Exception{
-			return sqlSession.selectOne(NAMESPACE+"getTotal");
+		public Long getTotal(Pager pager)throws Exception{
+			return sqlSession.selectOne(NAMESPACE+"getTotal", pager);
 		}
 		
 		

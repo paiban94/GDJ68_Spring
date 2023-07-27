@@ -52,6 +52,21 @@
 			    </li>
 			  </ul>
 			</nav>
+			
+			<div class="input-group mb-3">
+	 	<form action="./list" method="get">
+		 	<select name="kind"  class="form-select" aria-label="Default select example">
+		  	<option value="name">Name</option> <!-- 파라미터이름 kind로 선언 -->
+		  	<option value="contents">Contents</option>
+			<option value="subject">Subject</option>
+			</select>
+		 	 <input type="text" name="search" class="form-control" aria-label="Amount (to the nearest dollar)">
+		  		<div class="col-auto">
+		    		<button type="submit" class="btn btn-danger ">검색</button>
+			  </div>
+		</form>
+	</div>
+			
 		<a class="btn btn-outline-warning" for="btn-check-outlined" href="./add">글쓰기</a>
 		
 		<%-- 

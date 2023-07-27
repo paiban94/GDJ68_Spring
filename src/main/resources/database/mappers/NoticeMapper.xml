@@ -18,6 +18,14 @@
 		(
 		SELECT * FROM NOTICE 
 		WHERE NOTICENO>0
+		 	<choose>
+		 		<when test="kind=='name'">
+				AND NOTICENAME LIKE '%'||#{search}||'%'		 		
+		 		</when>
+		 		<otherwise>
+		 		AND NOTICENAME LIKE '%'||#{search}||'%'
+		 		</otherwise>
+		 	</choose>
 		ORDER BY NOTICENO DESC
 		) B  
 	)
