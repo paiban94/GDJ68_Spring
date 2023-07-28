@@ -15,6 +15,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.iu.main.file.FileDTO;
 import com.iu.main.util.Pager;
 
 @Repository // 해당 클래스의 객체 생성 , 스프링이 작동함
@@ -65,9 +66,17 @@ public class BankBookDAO {
 		return sqlSession.selectOne(NAMESPACE+"getDetail", bankBookDTO);
 	     // sqlSession 멥퍼의 위치, NAMESPACE 멥퍼의 경로,getDetail 멥퍼의 아이디
 	}
+
+	public long getSequence()throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getSequence");
+	}
+	
 	//add
 	public int setAdd(BankBookDTO bankBookDTO) throws Exception{
 		return sqlSession.insert(NAMESPACE+"setAdd", bankBookDTO);
+	}
+	public int setFileAdd(BankBookFileDTO bankBookFileDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setFileAdd", bankBookFileDTO);
 	}
 	//update
 	public int setUpdate(BankBookDTO bankBookDTO) throws Exception{
@@ -77,6 +86,7 @@ public class BankBookDAO {
 	public int setDelete (Long num) throws Exception{
 		return sqlSession.delete(NAMESPACE+"setDelete", num);
 	}
+	
 	
 	
 	
