@@ -31,7 +31,27 @@
   			<textarea class="form-control" name="noticeContents" id="noticeContents" rows="3">${dto.noticeContents}</textarea>
 		</div>
 
-
+			<div class="mb-3">
+	  		<label for="birth" class="form-label">사진첨부</label>
+	  		<input type="file" name="photos" class="form-control" id="pic">
+		</div>
+			<div class="mb-3">
+	  		<label for="birth" class="form-label">사진첨부</label>
+	  		<input type="file" name="photos" class="form-control" id="pic">
+		</div>
+			<div class="mb-3">
+	  		<label for="birth" class="form-label">사진첨부</label>
+	  		<input type="file" name="photos" class="form-control" id="pic">
+		</div>
+				<div class="mb-3">
+	  		<label for="birth" class="form-label">사진첨부</label>
+	  		<input type="file" name="photos" class="form-control" id="pic">
+		</div>
+			<div class="mb-3">
+	  		<label for="birth" class="form-label">사진첨부</label>
+	  		<input type="file" name="photos" class="form-control" id="pic">
+		
+	
 		
 		<button class="btn btn-primary" type="submit">등록</button>
 			</form>

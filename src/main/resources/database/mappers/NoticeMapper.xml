@@ -4,28 +4,32 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.iu.main.notice.NoticeDAO">
+
+  	<sql id="searchSql">
+			WHERE NOTICENO>0 
+					 <choose>
+						<when test="kind=='name'">
+						AND NOTICENAME LIKE '%'||#{search}||'%'
+						</when>	
+						<otherwise>
+						AND	NOTICECONTENTS LIKE '%'||#{search}||'%'
+						</otherwise>
+					</choose>	
+	</sql>
   
-  	<select id="getTotal" resultType="Long">
+  	<select id="getTotal" parameterType="com.iu.main.util.Pager" resultType="Long">
   		SELECT COUNT(NOTICENO) FROM NOTICE
+  		<include refid="searchSql"></include>
   	</select>
-  	
   
   <!-- list -->
   
-  <select id="getlist"  parameterType="com.iu.main.util.Pager"  resultType="NoticeDTO">
+ <select id="getlist"  parameterType="com.iu.main.util.Pager"  resultType="NoticeDTO">
   	SELECT NOTICENO, NOTICESUBJECT, NOTICENAME, NOTICEDATE, NOTICEHIT, NOTICECONTENTS 	FROM 
 	(SELECT  ROWNUM R, B.* FROM
 		(
 		SELECT * FROM NOTICE 
-		WHERE NOTICENO>0
-		 	<choose>
-		 		<when test="kind=='name'">
-				AND NOTICENAME LIKE '%'||#{search}||'%'		 		
-		 		</when>
-		 		<otherwise>
-		 		AND NOTICENAME LIKE '%'||#{search}||'%'
-		 		</otherwise>
-		 	</choose>
+		<include refid="searchSql"></include>
 		ORDER BY NOTICENO DESC
 		) B  
 	)
@@ -37,8 +41,37 @@ WHERE R BETWEEN #{startRow} AND #{lastRow}
   	VALUES (NOTICE_SEQ.NEXTVAL, #{noticeSubject}, #{noticeName}, SYSDATE, 0, #{noticeContents})
   	</insert>
   	
-  	<select id="getDetail" resultType="NoticeDTO" parameterType="NoticeDTO">
+  	<insert id="setFileAdd" parameterType="NoticeFileDTO">
+    	INSERT INTO NOTICEFILE (FILENUM, NOTICENO, FILENAME, ORIGINALNAME)
+  		VALUES (NOTICE_SEQ.NEXTVAL, #{NoticeNo},#{fileName}, #{originalName})
+  	</insert>
+  	
+  	<select id="getDetail" resultMap="getDetailResult" parameterType="NoticeDTO">
   		SELECT * FROM NOTICE WHERE NOTICENO=#{noticeNo}
+  		SELECT N.*, NF.*
+ 		FROM NOTICE N
+ 		 	LEFT OUTER JOIN
+ 			NOTICEFILE NF
+ 		 	ON(N.NOTICENO = NF.NOTICENO) <!-- 컬럼명이 똑같을떄 USING 사용가능 -->
+ 		 WHERE N.NOTICENO=#{noticeNo}
+  	</select>
+  		<resultMap type="NoticeDTO" id="getDetailResult">
+  		<id column="NOTICENO" property="noticeNo"/>
+  		<result column="NOTICESUBJECT" property="noticeSubject"/>
+  		<result column="NOTICENAME" property="noticeName"/>
+  		<result column="NOTICEDATE" property="noticeDate"/>
+  		<result column="NOTICEHIT" property="noticeHit"/>
+  		<result column="NOTICECONTENTS" property="noticeContents"/>
+  		
+  		<collection property="fileDTOs" javaType="List" ofType="NoticeFileDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="ORIGINALNAME" property="originalName"/>
+  		</collection>
+  	</resultMap>
+  	
+  	 	<select id="getSequence" resultType="Long">
+  		SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
   	</select>
   	
  	<update id="setUpdate" parameterType="NoticeDTO">

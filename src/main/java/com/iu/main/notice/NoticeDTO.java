@@ -12,6 +12,7 @@ public class NoticeDTO  {
 	private Date noticeDate;
 	private Long noticeHit;
 	private String noticeContents;
+	
 	public Long getNoticeNo() {
 		return noticeNo;
 	}

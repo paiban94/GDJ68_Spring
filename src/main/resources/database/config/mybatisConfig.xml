@@ -14,6 +14,8 @@
 		<typeAlias type="com.iu.main.member.MemberFileDTO" alias="MemberFileDTO"/>	
 		<typeAlias type="java.lang.Long" alias="Long"/>
 		<typeAlias type="com.iu.main.notice.NoticeDTO" alias="NoticeDTO"/>
+		<typeAlias type="com.iu.main.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
+		<typeAlias type="com.iu.main.qnaBoard.QnaBoardDTO" alias="QnaBoardDTO"/>
 		<typeAlias type="java.util.List" alias="List"/>
 	</typeAliases>
 

@@ -35,15 +35,15 @@
 	
 		<div class="mb-3">
 	  		<label for="birth" class="form-label">사진첨부</label>
-	  		<input type="file" name="photos" class="form-control" id="pic" placeholder="PW를 입력하세요">
+	  		<input type="file" name="photos" class="form-control" id="pic">
 		</div>
 			<div class="mb-3">
 	  		<label for="birth" class="form-label">사진첨부</label>
-	  		<input type="file" name="photos" class="form-control" id="pic" placeholder="PW를 입력하세요">
+	  		<input type="file" name="photos" class="form-control" id="pic">
 		</div>
 			<div class="mb-3">
 	  		<label for="birth" class="form-label">사진첨부</label>
-	  		<input type="file" name="photos" class="form-control" id="pic" placeholder="PW를 입력하세요">
+	  		<input type="file" name="photos" class="form-control" id="pic">
 		</div>
 		
 		<button class="btn btn-primary" type="submit">등록</button>

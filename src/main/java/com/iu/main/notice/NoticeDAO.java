@@ -2,7 +2,8 @@ package com.iu.main.notice;
 
 
 
-import java.util.List;
+import java.util.List
+;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -43,10 +44,19 @@ public class NoticeDAO {
 	public int setAdd(NoticeDTO noticeDTO) throws Exception{
 		return sqlSession.insert(NAMESPACE+"setAdd", noticeDTO);
 	}
+	public int setFileAdd(NoticeFileDTO noticeFileDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setAdd", noticeFileDTO);
+	}
+	
 	//detail
 	public NoticeDTO getDetail(NoticeDTO noticeDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getDetail", noticeDTO);
 	}
+	
+	public long getSequence()throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getSequence");
+	}
+	
 	//update
 	public int setUpdate(NoticeDTO noticeDTO) throws Exception{
 		return sqlSession.update(NAMESPACE+"setUpdate",noticeDTO);
