@@ -18,18 +18,18 @@
 		
 		<table class="table table-warning table-sm">
 		<!-- Latest compiled and minified CSS -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">	
 			<thead>
 				<th>NO</th><th>SUBJECT</th><th>NAME</th><th>DATE</th><th>HIT</th>
 			</thead>
 			<tbody>
 				<c:forEach items="${requestScope.list}" var="d" varStatus="i"> 
 					<tr>
-						<td><a href="./detail?noticeNo=${d.noticeNo}">${d.noticeNo}</a></td>
-						<td><a href="./detail?noticeNo=${d.noticeNo}">${d.noticeSubject}</a></td>
-						<td>${d.noticeName}</td>
-						<td>${d.noticeDate}</td>
-						<td>${d.noticeHit}</td>  
+						<td><a href="./detail?num=${d.num}">${d.num}</a></td>
+						<td>${d.subject}</td>
+						<td>${d.name}</td>
+						<td>${d.createDate}</td>
+						<td>${d.hit}</td>  
 					</tr>
 				</c:forEach>
 			</tbody>

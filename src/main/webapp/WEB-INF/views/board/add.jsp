@@ -15,20 +15,20 @@
 	<section class="container mt-5">
 	<h1 class="mb-3 text-center">Add Page</h1>
 	
-	<form action="./add" method="post">
+	<form action="./add" method="post" enctype="multipartfile">
 		<div class="mb-3">
 		<input type="hidden" name="noticeNo" value="${dto.noticeNo}">
 		  <label for="noticeSubject" class="form-label">제목</label>
-		  <input type="text" name="noticeSubject" class="form-control" id="noticeSubject" placeholder="제목">
+		  <input type="text" name="noticeSubject" class="form-control" id="subject" placeholder="제목">
 		</div>
 		<div class="mb-3">
 		  <label for="noticeName" class="form-label">작성자</label>
-		  <input type="text" name="noticeName" class="form-control" id="noticeName" placeholder="작성자">
+		  <input type="text" name="noticeName" class="form-control" id="name" placeholder="작성자">
 		</div>
 		
 		<div class="mb-3">
   			<label for="noticeContents" class="form-label">내용</label>
-  			<textarea class="form-control" name="noticeContents" id="noticeContents" rows="3">${dto.noticeContents}</textarea>
+  			<textarea class="form-control" name="noticeContents" id="contents" rows="3">${dto.noticeContents}</textarea>
 		</div>
 
 			<div class="mb-3">

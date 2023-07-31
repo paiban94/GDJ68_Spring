@@ -25,7 +25,7 @@
 		        </li>
 		         </li>
 		          <li class="nav-item">
-		          <a class="nav-link active" href="/qnaBoard/list">Q&A</a>
+		          <a class="nav-link active" href="/qna/list">Q&A</a>
 		        </li>
 		        <li class="nav-item dropdown">
 		          <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

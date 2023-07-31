@@ -1,4 +1,4 @@
-package com.iu.main.notice;
+package com.iu.main.board.notice;
 
 
 
@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.iu.main.bankBook.BankBookDTO;
 import com.iu.main.bankBook.BankBookFileDTO;
+import com.iu.main.board.BoardDAO;
+import com.iu.main.board.BoardDTO;
+import com.iu.main.board.BoardService;
 import com.iu.main.util.FileManager;
 import com.iu.main.util.Pager;
 
@@ -20,26 +23,26 @@ import com.iu.main.util.Pager;
 
 
 @Service
-public class NoticeService {
+public class NoticeService implements BoardService {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
 	private FileManager fileManager;
-	
-	public List<NoticeDTO> getlist (Pager pager) throws Exception{
+	@Override
+	public List<BoardDTO> getList (Pager pager) throws Exception{
 		
 		pager.makeRowNum();
 		Long total = noticeDAO.getTotal(pager);
 		
 		pager.makePageNum(total);
 		
-		return noticeDAO.getlist(pager);
+		return noticeDAO.getList(pager);
 	}
-	
-	public int setAdd(NoticeDTO noticeDTO,MultipartFile [] files, HttpSession session) throws Exception{
+	@Override
+	public int setAdd(BoardDTO boardDTO,MultipartFile [] files, HttpSession session) throws Exception{
 		String path ="/resources/upload/notice/";
 		
-		int result = noticeDAO.setAdd(noticeDTO);
+		int result = noticeDAO.setAdd(boardDTO);
 
 		for(MultipartFile multipartFile: files) {
 	
@@ -51,19 +54,25 @@ public class NoticeService {
 			NoticeFileDTO noticeFileDTO = new NoticeFileDTO();
 			noticeFileDTO.setOriginalName(multipartFile.getOriginalFilename());
 			noticeFileDTO.setFileName(fileName);
-			noticeFileDTO.setNoticeNo(noticeDTO.getNoticeNo());
+			noticeFileDTO.setNoticeNo(noticeDTO.getNum());
 			result = noticeDAO.setFileAdd(noticeFileDTO);
 		}
 		return noticeDAO.setAdd(noticeDTO);
 	}
+	@Override
+	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception{
+		return noticeDAO.getDetail(boardDTO);
+	}
+	
 
-	public NoticeDTO getDetail(NoticeDTO noticeDTO) throws Exception{
-		return noticeDAO.getDetail(noticeDTO);
+	@Override
+	public int setUpdate(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
-	public int setUpdate(NoticeDTO noticeDTO) throws Exception{
-		return noticeDAO.setUpdate(noticeDTO);
-	}
-	public int setDelete(Long noticeNo) throws Exception{
-		return noticeDAO.setDelete(noticeNo);
+	@Override
+	public int setDelete(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

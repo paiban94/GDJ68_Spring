@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="com.iu.main.qnaBoard.QnaBoardDAO">
+  <mapper namespace="com.iu.main.board.qna.QnaDAO">
  <sql id="searchSql">
 		WHERE QNANUM>0
 		 	<choose>
@@ -22,7 +22,7 @@
 	</select> 
  
  
-   <select id="getlist"  parameterType="com.iu.main.util.Pager"  resultType="QnaBoardDTO">
+   <select id="getList"  parameterType="com.iu.main.util.Pager"  resultType="QnaDTO">
   	SELECT QNANUM, QNANAME, QNASUBJECT, QNACONTENTS, QNADATE, QNAHIT FROM 
 	(SELECT  ROWNUM R, B.* FROM
 		(
@@ -34,4 +34,16 @@
 	)
 	WHERE R BETWEEN #{startRow} AND #{lastRow} 	
   </select>
+  
+  <insert id="setAdd" parameterType="QnaDTO">
+  	<selectKey keyProperty="num" resultType="Long" order="BEFORE">
+  		SELECT QNABOARD_SEQ.NEXTVAL FROM DUAL
+  	</selectKey>
+  	
+  	
+  	INSERT INTO QNABOARD(QNANUM, QNANAME, QNASUBJECT, QNACONTENTS, QNADATE, QNAHIT, REF, STEP, DEPTH))
+	VALUES (#{num}, #{name}, #{subject}, #{contents}, sysdate, 0, 0, 0, 0)  
+  </insert>
+  
+  
   </mapper>

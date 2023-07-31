@@ -1,4 +1,4 @@
-package com.iu.main.notice;
+package com.iu.main.board.notice;
 
 
 
@@ -17,19 +17,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.main.bankBook.BankBookDTO;
+import com.iu.main.board.BoardDTO;
 import com.iu.main.util.Pager;
 
 
 
 @Controller
-@RequestMapping(value = "/board/*")
+@RequestMapping(value = "/board/*")  /*"/board/*"*/
 public class NoticeController   {
 	@Autowired
 	private NoticeService noticeService;
 	
 	@RequestMapping(value="list",  method = RequestMethod.GET)
-	public String getlist(Pager pager, Model model) throws Exception{
-		List<NoticeDTO> ar = noticeService.getlist(pager);
+	public String getList(Pager pager, Model model) throws Exception{
+		List<BoardDTO> ar = noticeService.getList(pager);
 		model.addAttribute("list", ar);
 		model.addAttribute("pager",pager);
 		return "board/list";
@@ -47,7 +48,7 @@ public class NoticeController   {
 	//detail
 	@RequestMapping(value="detail")
 	public ModelAndView getDetail(NoticeDTO noticeDTO, ModelAndView mv)throws Exception{
-		noticeDTO = noticeService.getDetail(noticeDTO);
+		BoardDTO boardDTO = noticeService.getDetail(noticeDTO);
 		mv.addObject("dto", noticeDTO);
 		mv.setViewName("board/detail");
 		return mv;
@@ -56,7 +57,7 @@ public class NoticeController   {
 	//수정 form
 	@RequestMapping(value="update", method = RequestMethod.GET)
 	public void setUpdate(NoticeDTO noticeDTO, Model model)throws Exception{
-		noticeDTO=noticeService.getDetail(noticeDTO);
+		BoardDTO boardDTO=noticeService.getDetail(noticeDTO);
 		model.addAttribute("dto",noticeDTO);
 	}
 	
@@ -64,7 +65,7 @@ public class NoticeController   {
 	@RequestMapping(value="update", method = RequestMethod.POST)
 	public String setUpdate(NoticeDTO noticeDTO) throws Exception{
 		int result = noticeService.setUpdate(noticeDTO);
-		return "redirect:./detail?noticeNo="+noticeDTO.getNoticeNo();
+		return "redirect:./detail?noticeNo="+noticeDTO.getNum();
 	}
 	//delete
 	@RequestMapping(value="delete", method = RequestMethod.GET)

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="com.iu.main.notice.NoticeDAO">
+  <mapper namespace="com.iu.main.board.notice.NoticeDAO">
 
   	<sql id="searchSql">
 			WHERE NOTICENO>0 
@@ -24,8 +24,8 @@
   
   <!-- list -->
   
- <select id="getlist"  parameterType="com.iu.main.util.Pager"  resultType="NoticeDTO">
-  	SELECT NOTICENO, NOTICESUBJECT, NOTICENAME, NOTICEDATE, NOTICEHIT, NOTICECONTENTS 	FROM 
+ <select id="getList"  parameterType="com.iu.main.util.Pager"  resultType="NoticeDTO">
+  	SELECT NOTICENO, NOTICESUBJECT, NOTICENAME, NOTICECONTENTS, NOTICEDATE, NOTICEHIT FROM 
 	(SELECT  ROWNUM R, B.* FROM
 		(
 		SELECT * FROM NOTICE 
@@ -35,6 +35,24 @@
 	)
 WHERE R BETWEEN #{startRow} AND #{lastRow} 	
   </select>
+  <!-- 컬럼명과 변수명이 다를때도 resultmap사용가능 -->
+  <!--  컬럼병변경시 db에 직접하지않고 변경가능  -->
+  <resultMap type="NoticeDTO" id="getSelectResult">
+  	<id column="NOTICENO" property="num"/> <!-- 프라이머리키  -->
+    <result column="NOTICESUBJECT" property="subject"/>
+	<result column="NOTICENAME" property="name"/>
+	<result column="NOTICECONTENTS" property="contents"/> 
+	<result column="NOTICEDATE" property="createDate"/>
+	<result column="NOTICEHIT" property="hit"/> 
+  </resultMap>
+  
+<!--  	<collection property="fileDTOs" javaType="List" ofType="NoticeFileDTO">
+  		<id column="FILENUM" property="fileNum"/>
+  		<result column="FILENAME" property="fileName"/>
+  		<result column="ORIGINALNAME" property="originalName"/>
+  	</collection> -->
+
+   
   
   <insert id="setAdd" parameterType="NoticeDTO">
  	INSERT INTO	NOTICE 
