@@ -14,7 +14,7 @@
 	<c:import url="../temp/header.jsp"></c:import>
 	
 	<section class="container mt-5">
-		<h1 class="mb-3 text-center" >Notice List</h1>
+		<h1 class="mb-3 text-center" >${board} List</h1>
 		
 		<table class="table table-warning table-sm">
 		<!-- Latest compiled and minified CSS -->
@@ -26,7 +26,10 @@
 				<c:forEach items="${requestScope.list}" var="d" varStatus="i"> 
 					<tr>
 						<td><a href="./detail?num=${d.num}">${d.num}</a></td>
-						<td>${d.subject}</td>
+						<td><c:catch>
+						<c:forEach begin="1" end="${d.depth}">--</c:forEach>
+						</c:catch>
+						${d.subject}</td>
 						<td>${d.name}</td>
 						<td>${d.createDate}</td>
 						<td>${d.hit}</td>  

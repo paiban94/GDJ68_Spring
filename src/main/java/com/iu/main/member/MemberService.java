@@ -28,7 +28,7 @@ public class MemberService {
 		
 		if(!multipartFile.isEmpty()) {
 		
-		String fileName = fileManager.filesave(path, session, multipartFile);
+		String fileName = fileManager.fileSave(path, session, multipartFile);
 		MemberFileDTO memberFileDTO = new MemberFileDTO();
 		memberFileDTO.setId(memberDTO.getId());
 		memberFileDTO.setOriginalName((multipartFile.getOriginalFilename()));

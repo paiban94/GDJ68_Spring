@@ -14,26 +14,26 @@ import com.iu.main.util.Pager;
 public class QnaDAO implements BoardDAO{
 
 		@Autowired
-		private SqlSession sqlSession;
+		private SqlSession session;
 		
 		private final String NAMESPACE="com.iu.main.board.qna.QnaDAO.";
 		
 		@Override
 		public List<BoardDTO> getList(Pager pager) throws Exception {
 			// TODO Auto-generated method stub
-			return sqlSession.selectList(NAMESPACE+"getList", pager);
+			return session.selectList(NAMESPACE+"getList", pager);
 		}
 
 		@Override
 		public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
 			// TODO Auto-generated method stub
-			return null;
+			return session.selectOne(NAMESPACE+"getDetail", boardDTO);
 		}
 
 		@Override
 		public int setAdd(BoardDTO boardDTO) throws Exception {
 			// TODO Auto-generated method stub
-			return sqlSession.insert(NAMESPACE+"setAdd", boardDTO);
+			return session.insert(NAMESPACE+"setAdd", boardDTO);
 		}
 
 		@Override
@@ -53,12 +53,19 @@ public class QnaDAO implements BoardDAO{
 			// TODO Auto-generated method stub
 			return 0;
 		}
-
-
-		
 		//total
+		@Override
 		public Long getTotal(Pager pager)throws Exception{
-			return sqlSession.selectOne(NAMESPACE+"getTotal", pager);
+			return session.selectOne(NAMESPACE+"getTotal", pager);
+		}
+
+		public int setReplyAdd(QnaDTO qnaDTO)throws Exception{
+			System.out.println("setReplyAdd");
+			return session.insert(NAMESPACE+"setReplyAdd", qnaDTO);
+		}
+		
+		public int setStepUpdate(QnaDTO qnaDTO)throws Exception {
+			return session.update(NAMESPACE+"setStepUpdate", qnaDTO);
 		}
 		
 	

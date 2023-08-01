@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.iu.main.bankBook.BankBookDAO">
-	<sql id="searchSql">
+  	<sql id="searchSql">
 			WHERE BOOKNUM>0 
 					 <choose>
 						<when test="kind=='name'">
@@ -20,9 +20,8 @@
 		SELECT COUNT(BOOKNUM) FROM BANKBOOK
 		<include refid="searchSql"></include>
 	</select> 
-
- 		
- 	<select id="getList"  parameterType="com.iu.main.util.Pager" resultType="BankBookDTO" >
+	
+	<select id="getList"  parameterType="com.iu.main.util.Pager" resultType="BankBookDTO" >
  			SELECT BOOKNUM, BOOKNAME, BOOKRATE, BOOKSALE FROM 
 			(SELECT  ROWNUM R, B.* FROM
 				(
@@ -42,9 +41,7 @@
 			)
 		WHERE R BETWEEN #{startRow} AND #{lastRow} 	
  	</select>
- 		
- 	
- 	<select id="getDetail" resultMap="getDetailResult" parameterType="BankBookDTO">
+	<select id="getDetail" resultMap="getDetailResult" parameterType="BankBookDTO">
  		SELECT B.*, BF.*
  		FROM BANKBOOK B
  		 	LEFT OUTER JOIN
@@ -68,23 +65,18 @@
   	<select id="getSequence" resultType="Long">
   		SELECT BANK_SEQ.NEXTVAL FROM DUAL
   	</select>
-  	
-  	<insert id="setAdd" parameterType="BankBookDTO">  <!-- 파라미터타입 : xx에서 받아온다 -->
-  		<selectKey keyProperty="bookNum" resultType="Long" order="BEFORE"></selectKey>
-  		INSERT INTO BANKBOOK (BOOKNUM, BOOKNAME, BOOKRATE, BOOKSALE, BOOKCONTENTS)
+	
+		<insert id="setAdd" parameterType="BankBookDTO">  <!-- 파라미터타입 : xx에서 받아온다 -->
+  		<selectKey keyProperty="bookNum" resultType="Long" order="BEFORE">
+  		SELECT BANK_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO BANKBOOK
   		VALUES (#{bookNum}, #{bookName},#{bookRate}, #{bookSale}, #{bookContents})
   	</insert>
-  <!-- select는 쿼리를 보내면 return으로 xx를 받겠다  -->
-  	<insert id="setFileAdd" parameterType="BankBookFileDTO">
+	<insert id="setFileAdd" parameterType="BankBookFileDTO">
     	INSERT INTO BANKFILE (FILENUM, BOOKNUM, FILENAME, ORIGINALNAME)
   		VALUES (BANK_SEQ.NEXTVAL, #{bookNum},#{fileName}, #{originalName})
   	</insert>
-  
-  
-	<delete id="setDelete" parameterType="Long">
-		DELETE BANKBOOK WHERE BOOKNUM=#{num}
-	</delete>
-	
 	
 	<update id="setUpdate" parameterType="BankBookDTO">
 		UPDATE BANKBOOK SET
@@ -93,6 +85,12 @@
 		BOOKSALE=#{bookSale},
 		BOOKCONTENTS=#{bookContents}
 		WHERE BOOKNUM=#{bookNum}
-	</update>  
-  
+	</update> 
+	
+	<delete id="setDelete" parameterType="Long">
+		DELETE BANKBOOK WHERE BOOKNUM=#{num}
+	</delete>
+	
+
+
   </mapper>

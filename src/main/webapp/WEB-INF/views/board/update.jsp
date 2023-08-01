@@ -17,19 +17,19 @@
 	
 	<form action="./update" method="post">
 		<div class="mb-3">
-		<input type="hidden" name="noticeNo" value="${dto.noticeNo}">
+		<input type="hidden" name="num" value="${dto.num}">
 		  <label for="noticeSubject" class="form-label">제목</label>
-		  <input type="text" name="noticeSubject" " id="noticeSubject" value="${dto.noticeSubject}">
+		  <input type="text" name="subject" " id="subject" value="${dto.subject}">
 		</div>
 		<div class="mb-3">
 		  <label for="noticeName" class="form-label">작성자</label>
-		  <input type="text" name="noticeName" id="noticeName" value="${dto.noticeName}">
+		  <input type="text" name="Name" id="name" value="${dto.name}">
 		</div>
 	
 		
 		<div class="mb-3">
   			<label for="noticeContents" class="form-label">내용</label>
-  			<textarea class="form-control" name="noticeContents" id="noticeContents" rows="3">${dto.noticeContents}</textarea>
+  			<textarea class="form-control" name="contents" id="contents" rows="3">${dto.contents}</textarea>
 		</div>
 
 		

@@ -18,7 +18,7 @@ public class BankBookService {
 
 	@Autowired // ex) BankBookDAO 타입으로 된 객체를 찾아서 넣어주라는 뜻
 	private BankBookDAO bankBookDAO; //서비스는 dao에 의존적
-
+	@Autowired
 	private FileManager fileManager; //hdd저장
 	
 	public List<BankBookDTO> getList (Pager pager) throws Exception{
@@ -61,7 +61,7 @@ public class BankBookService {
 				continue;
 			}
 			
-			String fileName= fileManager.filesave(path, session, multipartFile);
+			String fileName= fileManager.fileSave(path, session, multipartFile);
 			BankBookFileDTO bankBookFileDTO = new BankBookFileDTO();
 			bankBookFileDTO.setOriginalName(multipartFile.getOriginalFilename());
 			bankBookFileDTO.setFileName(fileName);
@@ -69,7 +69,7 @@ public class BankBookService {
 			result = bankBookDAO.setFileAdd(bankBookFileDTO);
 		}
 				
-		return bankBookDAO.setAdd(bankBookDTO); 
+		return result; 
 	}
 	public int setUpdate(BankBookDTO bankBookDTO) throws Exception{
 		return bankBookDAO.setUpdate(bankBookDTO);
@@ -81,3 +81,4 @@ public class BankBookService {
 		
 	}
 }
+

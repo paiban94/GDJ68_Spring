@@ -13,17 +13,18 @@
 
 	<c:import url="../temp/header.jsp"></c:import>
 	<section class="container mt-5">
-	<h1 class="mb-3 text-center">${board}Add Page</h1>
+	<h1 class="mb-3 text-center">${board}Reply Page</h1>
 	
-	<form action="./add" method="post" enctype="multipartfile/form-data">
+	<form action="./reply" method="post" enctype="multipartfile">
+	<input type="hidden" name="num" value="${num}">
 		<div class="mb-3">
-	<%-- 	<input type="hidden" name="num" value="${dto.num}"> --%>
+		<input type="hidden" name="noticeNo" value="${dto.noticeNo}">
 		  <label for="noticeSubject" class="form-label">제목</label>
 		  <input type="text" name="subject" class="form-control" id="subject" placeholder="제목">
 		</div>
 		<div class="mb-3">
 		  <label for="noticeName" class="form-label">작성자</label>
-		  <input type="text" name="name"  readonly value="${member.id}" class="form-control" id="name" placeholder="작성자">
+		  <input type="text" name="name" class="form-control" id="name" placeholder="작성자">
 		</div>
 		
 		<div class="mb-3">
@@ -53,7 +54,7 @@
 		
 	
 		
-		<button class="btn btn-primary" type="submit">글쓰기</button>
+		<button class="btn btn-primary" type="submit">등록</button>
 			</form>
 	
 		</section>

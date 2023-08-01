@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.iu.main.board.BoardDTO;
 import com.iu.main.board.BoardService;
+import com.iu.main.util.FileManager;
 import com.iu.main.util.Pager;
 
 @Service
@@ -17,6 +18,8 @@ public class QnaService implements BoardService {
 	@Autowired
 	private QnaDAO qnaDAO;
 	
+	@Autowired
+	private FileManager fileManager;
 	
 	
 	@Override
@@ -40,17 +43,30 @@ public class QnaService implements BoardService {
 	@Override
 	public BoardDTO getDetail(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		System.out.println(boardDTO.getNum());
+		return qnaDAO.getDetail(boardDTO);
 	}
-
-
 
 	@Override
 	public int setAdd(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		String path="/resources/upload/notice/";
+		
+		int result = qnaDAO.setAdd(boardDTO);
+		
+		for(MultipartFile file:files) {
+			if(!file.isEmpty()) {
+				String fileName=fileManager.fileSave(path, session, file);
+				QnaFileDTO qnaFileDTO = new QnaFileDTO();
+				qnaFileDTO.setQnaNum(boardDTO.getNum());
+				qnaFileDTO.setFileName(fileName);
+				qnaFileDTO.setOriginalName(file.getOriginalFilename());
+				//result=qnaDAO.setFileAdd(noticeFileDTO);
+			}
+		}
+		
+		
+		return result;
 	}
-
 
 
 	@Override
@@ -60,22 +76,27 @@ public class QnaService implements BoardService {
 	}
 
 
-
 	@Override
 	public int setDelete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	public int setReplyAdd(QnaDTO qnaDTO, MultipartFile [] file, HttpSession session) throws Exception {
+		BoardDTO parentDTO = new BoardDTO();
+		parentDTO.setNum(qnaDTO.getNum());
 
-//
-//	public List<QnaDTO> getlist (Pager pager) throws Exception{
-//		
-//		pager.makeRowNum();
-//		Long total = qnaBoardDAO.getTotal(pager);
-//		
-//		pager.makePageNum(total);
-//		
-//		return qnaBoardDAO.getlist(pager);
-//	}
+		parentDTO= qnaDAO.getDetail(parentDTO);
+		QnaDTO p = (QnaDTO)parentDTO;
+		qnaDTO.setRef(p.getRef());
+		qnaDTO.setStep(p.getStep()+1);
+		qnaDTO.setDepth(p.getDepth()+1);
+		
+		int result = qnaDAO.setStepUpdate(p);
+		
+		result = qnaDAO.setReplyAdd(qnaDTO);
+		return result;
+	}
+
+
 }

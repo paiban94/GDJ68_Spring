@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileManager {
 	
 	//filesave
-	public String filesave(String path, HttpSession session, MultipartFile multipartFile) throws Exception{
+	public String fileSave(String path, HttpSession session, MultipartFile multipartFile) throws Exception{
 		
 		//파일의 정보를 이용해서 HDD에 파일을 저장
 		

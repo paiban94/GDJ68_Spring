@@ -17,14 +17,14 @@
 					</choose>	
 	</sql>
   
-  	<select id="getTotal" parameterType="com.iu.main.util.Pager" resultType="Long">
+  	<select id="getTotal" parameterType="Pager" resultType="Long">
   		SELECT COUNT(NOTICENO) FROM NOTICE
   		<include refid="searchSql"></include>
   	</select>
   
   <!-- list -->
   
- <select id="getList"  parameterType="com.iu.main.util.Pager"  resultType="NoticeDTO">
+<select id="getList" resultMap="getSelectResult" parameterType="Pager">
   	SELECT NOTICENO, NOTICESUBJECT, NOTICENAME, NOTICECONTENTS, NOTICEDATE, NOTICEHIT FROM 
 	(SELECT  ROWNUM R, B.* FROM
 		(
@@ -46,62 +46,45 @@ WHERE R BETWEEN #{startRow} AND #{lastRow}
 	<result column="NOTICEHIT" property="hit"/> 
   </resultMap>
   
-<!--  	<collection property="fileDTOs" javaType="List" ofType="NoticeFileDTO">
-  		<id column="FILENUM" property="fileNum"/>
-  		<result column="FILENAME" property="fileName"/>
-  		<result column="ORIGINALNAME" property="originalName"/>
-  	</collection> -->
 
    
   
-  <insert id="setAdd" parameterType="NoticeDTO">
- 	INSERT INTO	NOTICE 
-  	VALUES (NOTICE_SEQ.NEXTVAL, #{noticeSubject}, #{noticeName}, SYSDATE, 0, #{noticeContents})
+  <insert id="setAdd" parameterType="NoticeDTO" >
+	INSERT INTO	NOTICE 
+	VALUES (NOTICE_SEQ.NEXTVAL, #{subject}, #{name}, SYSDATE, 0, #{contents})
   	</insert>
   	
-  	<insert id="setFileAdd" parameterType="NoticeFileDTO">
+  	 <insert id="setFileAdd" parameterType="NoticeFileDTO">
     	INSERT INTO NOTICEFILE (FILENUM, NOTICENO, FILENAME, ORIGINALNAME)
-  		VALUES (NOTICE_SEQ.NEXTVAL, #{NoticeNo},#{fileName}, #{originalName})
-  	</insert>
+  		VALUES (NOTICE_SEQ.NEXTVAL, #{num},#{fileName}, #{originalName})
+  	</insert> 
   	
-  	<select id="getDetail" resultMap="getDetailResult" parameterType="NoticeDTO">
-  		SELECT * FROM NOTICE WHERE NOTICENO=#{noticeNo}
-  		SELECT N.*, NF.*
- 		FROM NOTICE N
- 		 	LEFT OUTER JOIN
- 			NOTICEFILE NF
- 		 	ON(N.NOTICENO = NF.NOTICENO) <!-- 컬럼명이 똑같을떄 USING 사용가능 -->
- 		 WHERE N.NOTICENO=#{noticeNo}
+  	<select id="getDetail"  resultMap="getSelectResult" parameterType="NoticeDTO">  
+  		SELECT * FROM NOTICE
+  		WHERE NOTICENO=#{num}
   	</select>
-  		<resultMap type="NoticeDTO" id="getDetailResult">
-  		<id column="NOTICENO" property="noticeNo"/>
-  		<result column="NOTICESUBJECT" property="noticeSubject"/>
-  		<result column="NOTICENAME" property="noticeName"/>
-  		<result column="NOTICEDATE" property="noticeDate"/>
-  		<result column="NOTICEHIT" property="noticeHit"/>
-  		<result column="NOTICECONTENTS" property="noticeContents"/>
-  		
-  		<collection property="fileDTOs" javaType="List" ofType="NoticeFileDTO">
-  			<id column="FILENUM" property="fileNum"/>
-  			<result column="FILENAME" property="fileName"/>
-  			<result column="ORIGINALNAME" property="originalName"/>
-  		</collection>
-  	</resultMap>
+
   	
-  	 	<select id="getSequence" resultType="Long">
-  		SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
-  	</select>
+  
   	
  	<update id="setUpdate" parameterType="NoticeDTO">
 		UPDATE NOTICE SET
-		NOTICESUBJECT=#{noticeSubject}, 
-		NOTICECONTENTS=#{noticeContents}
-		WHERE NOTICENO=#{noticeNo}
+		NOTICESUBJECT=#{subject}, 
+		NOTICECONTENTS=#{contents}
+		WHERE NOTICENO=#{num}
 	</update>  
 	
+	<update id="setHitCount">
+		UPDATE NOTICE SET
+		NOTICEHIT = NOTICEHIT + 1
+		WHERE
+		NOTICENO = #{num}
+	</update>
+	
 	<delete id="setDelete" parameterType="Long">
-		DELETE NOTICE WHERE NOTICENO=#{noticeNo}
+		DELETE NOTICE WHERE NOTICENO=#{num}
 	</delete>
 	
+
 	
   </mapper>
