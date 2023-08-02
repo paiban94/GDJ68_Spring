@@ -33,20 +33,23 @@
 		</c:otherwise>
 	</c:choose>
 	
-	<c:forEach items="${dto.fileDTOs}" var="f">
-		<img alt="" src="/resources/upload/bankbook/${f.fileName}">
+	s <c:forEach items="${dto.fileDTOs}" var="f">
+		 <img alt="" src="/resources/upload/bankbook/${f.fileName}"> 
 	</c:forEach>
 	
 	<a href="./update?bookNum=${dto.bookNum}">수정</a>
 	<a href="./delete?bookNum=${dto.bookNum}">삭제</a>
 	
-<%-- 	
-	<c:if test="${dto.bookSale eq 1}">
-		<h1>판매중</h1>
-	</c:if>
-	<c:if test="${dto.bookSale eq 0}">
-		<h1>판매종료</h1>
-	</c:if>
---%>
+	
+	<button id="update">수정</button>
+	<button id="del" data-delete-name="booknum" data-delete-num="${dto.bookNum}">삭제</button>
+
+
+<script src="../resources/js/delete.js"></script> 
+
+<!-- <script>
+	 setBookNum(${dto.bookNum});
+</script> -->
+
 </body>
 </html>

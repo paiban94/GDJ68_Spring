@@ -26,15 +26,16 @@ import com.iu.main.util.Pager;
 public class NoticeService implements BoardService {
 	@Autowired
 	private NoticeDAO noticeDAO;
-	
+	@Autowired
 	private FileManager fileManager;
 	@Override
 	public List<BoardDTO> getList (Pager pager) throws Exception{
 		
 		pager.makeRowNum();
-		Long total = noticeDAO.getTotal(pager);
-		
-		pager.makePageNum(total);
+		pager.makePageNum(noticeDAO.getTotal(pager));
+		/*
+		 * Long total = noticeDAO.getTotal(pager); pager.makePageNum(total);
+		 */
 		
 		return noticeDAO.getList(pager);
 	}
@@ -67,11 +68,11 @@ public class NoticeService implements BoardService {
 	@Override
 	public int setUpdate(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return noticeDAO.setUpdate(boardDTO);
 	}
 	@Override
 	public int setDelete(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return noticeDAO.setDelete(boardDTO);
 	}
 }

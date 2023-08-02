@@ -31,14 +31,18 @@
   			<label for="noticeContents" class="form-label">내용</label>
   			<textarea class="form-control" name="contents" id="contents" rows="3">${dto.contents}</textarea>
 		</div>
-
 		
+<%-- 		 
+	 	<div id="fileList" class="my-5">
+	 		<c:forEach items="${dto.dtos}" var="f">
+	 			<div class="input-group mb-3">
+	 				<input type="file" value="${f.originalName}" class
+	 			</div>
+	 		 
+	 		</c:forEach> 
+				 --%>
 		
-	<!-- 	<p>
-			판매가능 <input type="radio" value="1" checked name="bookSale"><br>
-			판매중지 <input type="radio" value="0" name="bookSale"><br>
-		</p>  -->
-		
+		</div>
 
 		
 		<button type="submit">수정</button>

@@ -16,30 +16,32 @@
 
 			<h1 class="mb-3">${board}상세 페이지</h1>
 			
+			<h1>${dto.num}</h1>
 			<h1>${dto.subject}</h1>
-		
 			<h1>${dto.name}</h1>
 			<h1>${dto.createDate}</h1>
 			<h1>${dto.hit}</h1>
 			<h1>${dto.contents}</h1>
 			
-			<form>
+		<form>
 			
-	<%-- 		<div>
-			<c:forEach items="${dto.dtos}" var="f">
-			<img src="../resources/upload/${board}/${f.fileName}">
-			</c:forEach>
+			<div>
+				<c:forEach items="${dto.dtos}" var="f">
+				<img src="../resources/upload/${board}/${f.fileName}">
+				</c:forEach>
 			</div>
-		 --%>
+		 
 			
 			<c:if test="${board ne 'notice'}">
 			<a href="./reply?num=${dto.num}">답변</a>
 			</c:if>
 			<a href="./update?num=${dto.num}">수정</a>
 			<a href="./delete?num=${dto.num}">삭제</a>
-			
-			</form>
-	</section>
+			<button id="del" data-delete-name="num" data-delete-num="${dto.num}">삭제</button>	
+		</form>
+			<script src="../resources/js/delete.js"></script>
+	
+		</section>
 
 </body>
 </html>

@@ -25,7 +25,7 @@ import com.iu.main.util.Pager;
 
 
 @Controller
-@RequestMapping(value = "/board/*")  /*"/board/*"*/
+@RequestMapping(value = "/notice/*")  /*"/board/*"*/
 public class NoticeController   {
 	@Autowired
 	private NoticeService noticeService;
@@ -68,17 +68,17 @@ public class NoticeController   {
 	//하나는 수정 폼, 하나는 수정하고 db에 업데이트
 	
 	//수정 form
-	@RequestMapping(value="update", method = RequestMethod.GET)
-	public void setUpdate(NoticeDTO noticeDTO, Model model)throws Exception{
-		BoardDTO boardDTO=noticeService.getDetail(noticeDTO);
-		model.addAttribute("dto",noticeDTO);
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public String setUpdate(BoardDTO boardDTO, Model model)throws Exception{
+		boardDTO = noticeService.getDetail(boardDTO);
+		model.addAttribute("dto", boardDTO);
+		return "board/update";
 	}
 	
-	//update
-	@RequestMapping(value="update", method = RequestMethod.POST)
-	public String setUpdate(NoticeDTO noticeDTO) throws Exception{
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String setUpdate(NoticeDTO noticeDTO, MultipartFile[] photos, HttpSession session)throws Exception{
 		int result = noticeService.setUpdate(noticeDTO);
-		return "redirect:./detail?noticeNo="+noticeDTO.getNum();
+		return "redirect:./list";
 	}
 	//delete
 	@RequestMapping(value="delete", method = RequestMethod.GET)

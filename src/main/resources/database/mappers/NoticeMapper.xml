@@ -60,19 +60,37 @@ WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</insert> 
   	
   	<select id="getDetail"  resultMap="getSelectResult" parameterType="NoticeDTO">  
-  		SELECT * FROM NOTICE
-  		WHERE NOTICENO=#{num}
+  		SELECT 
+  			* 
+  		FROM
+  			NOTICE N
+  			LEFT JOIN
+  			NOTICEFILE NF
+  			ON N.NOTICENO=NF.NOTICENO
+  		WHERE
+  			N.NOTICENO=#{num}
   	</select>
 
   	
   
+	<delete id="setDelete" parameterType="NoticeDTO">
+		DELETE 
+			NOTICE 
+		WHERE	
+			NOTICENO=#{num}
+	</delete>
+	
   	
  	<update id="setUpdate" parameterType="NoticeDTO">
-		UPDATE NOTICE SET
+		UPDATE NOTICE
+		SET
 		NOTICESUBJECT=#{subject}, 
 		NOTICECONTENTS=#{contents}
-		WHERE NOTICENO=#{num}
+		
+		WHERE 
+		NOTICENO=#{num}
 	</update>  
+	
 	
 	<update id="setHitCount">
 		UPDATE NOTICE SET
@@ -80,11 +98,6 @@ WHERE R BETWEEN #{startRow} AND #{lastRow}
 		WHERE
 		NOTICENO = #{num}
 	</update>
-	
-	<delete id="setDelete" parameterType="Long">
-		DELETE NOTICE WHERE NOTICENO=#{num}
-	</delete>
-	
 
 	
   </mapper>

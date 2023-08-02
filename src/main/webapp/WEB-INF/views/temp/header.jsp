@@ -21,7 +21,7 @@
 		          <a class="nav-link active" href="/student/list">학생목록</a>
 		        </li>
 		          <li class="nav-item">
-		          <a class="nav-link active" href="/board/list">게시판</a>
+		          <a class="nav-link active" href="/notice/list">게시판</a>
 		        </li>
 		         </li>
 		          <li class="nav-item">
