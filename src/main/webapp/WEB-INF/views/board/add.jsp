@@ -1,64 +1,87 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<c:import url="../temp/bootStrap.jsp"></c:import>
+	<meta charset="UTF-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Insert title here</title>
+
+	<c:import url="../temp/bootStrap.jsp"></c:import>
+
+
 </head>
 <body>
-
 	<c:import url="../temp/header.jsp"></c:import>
-	<section class="container mt-5">
-	<h1 class="mb-3 text-center">${board}Add Page</h1>
+	<div class="container-fluid">
 	
-	<form action="./add" method="post" enctype="multipartfile/form-data">
-		<div class="mb-3">
-	<%-- 	<input type="hidden" name="num" value="${dto.num}"> --%>
-		  <label for="noticeSubject" class="form-label">제목</label>
-		  <input type="text" name="subject" class="form-control" id="subject" placeholder="제목">
-		</div>
-		<div class="mb-3">
-		  <label for="noticeName" class="form-label">작성자</label>
-		  <input type="text" name="name"  readonly value="${member.id}" class="form-control" id="name" placeholder="작성자">
+		<div class="row justify-content-center my-4">
+			<h1 class="col-md-7 text-center">${board} Add Page</h1>
 		</div>
 		
-		<div class="mb-3">
-  			<label for="noticeContents" class="form-label">내용</label>
-  			<textarea class="form-control" name="contents" id="contents" rows="3">${dto.noticeContents}</textarea>
-		</div>
-
-			<div class="mb-3">
-	  		<label for="birth" class="form-label">사진첨부</label>
-	  		<input type="file" name="photos" class="form-control" id="pic">
-		</div>
-			<div class="mb-3">
-	  		<label for="birth" class="form-label">사진첨부</label>
-	  		<input type="file" name="photos" class="form-control" id="pic">
-		</div>
-			<div class="mb-3">
-	  		<label for="birth" class="form-label">사진첨부</label>
-	  		<input type="file" name="photos" class="form-control" id="pic">
-		</div>
+		<div class="row justify-content-center my-4">
+			<form class="col-md-7" action="./add" method="post" id="frm" enctype="multipart/form-data">
 				<div class="mb-3">
-	  		<label for="birth" class="form-label">사진첨부</label>
-	  		<input type="file" name="photos" class="form-control" id="pic">
-		</div>
-			<div class="mb-3">
-	  		<label for="birth" class="form-label">사진첨부</label>
-	  		<input type="file" name="photos" class="form-control" id="pic">
+				  <label for="writer" class="form-label">작성자</label>
+				  <input type="text" name="name" readonly value="${member.id}" class="form-control" id="name">
+				</div>
+				
+				<div class="mb-3">
+				  <label for="title" class="form-label">제목</label>
+				  <input type="text" name="subject" class="form-control" id="subject" placeholder="제목 입력">
+				</div>
 		
+				<div class="mb-3">
+				  <label for="contents" class="form-label">내용</label>
+				  <textarea name="contents" class="form-control" id="contents" placeholder="내용 입력" rows="7"></textarea>
+				</div>
+				
+				<div id="fileList" class="my-5">
+					<div class="input-group mb-3">
+						<input type="file" class="form-control" id="photos" name="photos">
+					</div>
+					<div class="input-group mb-3">
+						<input type="file" class="form-control" id="photos" name="photos">
+					</div>					
+					<div class="input-group mb-3">
+						<input type="file" class="form-control" id="photos" name="photos">
+					</div>
+					<div class="input-group mb-3">
+						<input type="file" class="form-control" id="photos" name="photos">
+					</div>
+					<div class="input-group mb-3">
+						<input type="file" class="form-control" id="photos" name="photos">
+					</div>					
 	
-		
-		<button class="btn btn-primary" type="submit">글쓰기</button>
+				</div>
+							
+				<div class="mb-3">
+					<button class="my btn btn-danger" type="button" id="btn">글쓰기</button>
+				</div>
+			
 			</form>
-	
-		</section>
-		
-	
-	
+		</div>
+	</div>
+	 	
+		<script>
+			const btn = document.getElementById("btn")
+			const subject = document.getElementById("subject")
+			const frm = document.getElementById("frm")
+
+			btn.addEventListener("click", function(){
+				console.log(subject.value=="");
+				console.log(subject.value.length==0)
+				if(subject.value==""){
+					alert('제목을 입력 해 주세요.')
+					subject.focus();
+				}else {
+					frm.submit();
+				}			
+			})
+
+		</script>
+
+	 
 </body>
 </html>

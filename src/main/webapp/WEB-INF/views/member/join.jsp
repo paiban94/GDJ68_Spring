@@ -7,23 +7,39 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../temp/bootStrap.jsp"></c:import>
+<style>
+	.f{
+		color: red;
+	}
+	.s{
+		color:green;
+	}
+
+</style>
 </head>
 <body>
 <c:import url="../temp/header.jsp"></c:import>
 <section class="container mt-5">	
 	<h1 class="my-4">Join Page</h1>
 	
-	<form action="./join" method="post" enctype="multipart/form-data">
+	<form action="./join" method="post" enctype="multipart/form-data" id="frm">
 	<div class="mb-3">
 	  <label for="id" class="form-label">ID</label>
 	  <input type="text" name="id" class="form-control" id="id" placeholder="ID를 입력하세요">
+	  <div id="idResult"></div>
 	</div>
 	
 	<div class="mb-3">
 	  <label for="pw" class="form-label">PASSWORD</label>
 	  <input type="password" name="pw" class="form-control" id="pw" placeholder="PW를 입력하세요">
+	  <div id="pwResult"></div>
 	</div>
 	
+	<div class="mb-3">
+		<label for="pw" class="form-label">PASSWORD확인</label>
+		<input type="password" name="pw2" class="form-control" id="pw2" placeholder="PW를 입력하세요">
+	  </div>
+
 	<div class="mb-3">
 	  <label for="name" class="form-label">Name</label>
 	  <input type="text" name="name" class="form-control" id="name" placeholder="Name을 입력하세요">
@@ -45,11 +61,14 @@
 	</div>
 	
 	<div class="mb-3">
-		<button class="btn btn-primary">회원가입</button>
+		<button class="btn btn-primary" id="btn">회원가입</button>
 	</div>
 	
 	</form>
+
 	
+
+	<script src="../resources/js/join.js"></script>
 	
 </section>
 

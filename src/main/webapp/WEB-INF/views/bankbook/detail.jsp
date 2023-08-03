@@ -33,7 +33,7 @@
 		</c:otherwise>
 	</c:choose>
 	
-	s <c:forEach items="${dto.fileDTOs}" var="f">
+	 <c:forEach items="${dto.fileDTOs}" var="f">
 		 <img alt="" src="/resources/upload/bankbook/${f.fileName}"> 
 	</c:forEach>
 	
