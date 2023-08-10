@@ -4,62 +4,83 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.iu.main.board.notice.NoticeDAO">
-
-  	<sql id="searchSql">
-			WHERE NOTICENO>0 
-					 <choose>
-						<when test="kind=='name'">
-						AND NOTICENAME LIKE '%'||#{search}||'%'
-						</when>	
-						<otherwise>
-						AND	NOTICECONTENTS LIKE '%'||#{search}||'%'
-						</otherwise>
-					</choose>	
-	</sql>
-  
-  	<select id="getTotal" parameterType="Pager" resultType="Long">
+      	<sql id="searchSql">
+	  		WHERE NOTICENO>0 
+							
+			<choose>
+				<when test="kind=='subject'">
+					AND NOTICESUBJECT LIKE '%'||#{search}||'%'
+				</when>
+				
+				<when test="kind=='contents'">
+					AND NOTICECONTENTS LIKE '%'||#{search}||'%'
+				</when>
+				
+				<otherwise>
+					AND NOTICENAME LIKE '%'||#{search}||'%'	
+				</otherwise>
+			</choose>
+  		</sql>
+	<select id="getList" resultMap="getSelectResult" parameterType="Pager">
+  		SELECT 
+  			*
+		FROM(
+			SELECT 
+				ROWNUM R, 
+				B.* 
+			FROM(
+				SELECT
+					* 
+				FROM 
+					NOTICE
+				<include refid="searchSql"></include>	
+				
+				ORDER BY 
+					NOTICENO DESC
+				) B
+			)
+		WHERE
+			R BETWEEN #{startRow} AND #{lastRow}
+  	</select>
+  	
+  	
+  	
+  	<resultMap type="NoticeDTO" id="getSelectResult">
+  		<id column="NOTICENO" property="num"/>
+  		<result column="NOTICESUBJECT" property="subject"/>
+  		<result column="NOTICENAME" property="name"/>
+  		<result column="NOTICECONTENTS" property="contents"/>
+  		<result column="NOTICEDATE" property="createDate"/>
+  		<result column="NOTICEHIT" property="hit"/>
+  		<collection property="dtos" javaType="List" ofType="NoticeFileDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="ORIGINALNAME" property="originalName"/>
+  		</collection>
+  		
+  	</resultMap>
+  	
+  	
+  	<select id="getTotal" resultType="Long">
   		SELECT COUNT(NOTICENO) FROM NOTICE
   		<include refid="searchSql"></include>
   	</select>
-  
-  <!-- list -->
-  
-<select id="getList" resultMap="getSelectResult" parameterType="Pager">
-  	SELECT NOTICENO, NOTICESUBJECT, NOTICENAME, NOTICECONTENTS, NOTICEDATE, NOTICEHIT FROM 
-	(SELECT  ROWNUM R, B.* FROM
-		(
-		SELECT * FROM NOTICE 
-		<include refid="searchSql"></include>
-		ORDER BY NOTICENO DESC
-		) B  
-	)
-WHERE R BETWEEN #{startRow} AND #{lastRow} 	
-  </select>
-  <!-- 컬럼명과 변수명이 다를때도 resultmap사용가능 -->
-  <!--  컬럼병변경시 db에 직접하지않고 변경가능  -->
-  <resultMap type="NoticeDTO" id="getSelectResult">
-  	<id column="NOTICENO" property="num"/> <!-- 프라이머리키  -->
-    <result column="NOTICESUBJECT" property="subject"/>
-	<result column="NOTICENAME" property="name"/>
-	<result column="NOTICECONTENTS" property="contents"/> 
-	<result column="NOTICEDATE" property="createDate"/>
-	<result column="NOTICEHIT" property="hit"/> 
-  </resultMap>
-  
-
-   
-  
-  <insert id="setAdd" parameterType="NoticeDTO" >
-	INSERT INTO	NOTICE 
-	VALUES (NOTICE_SEQ.NEXTVAL, #{subject}, #{name}, SYSDATE, 0, #{contents})
+  	
+  	<insert id="setFileAdd" parameterType="NoticeFileDTO">
+  		INSERT INTO NOTICEFILE
+  		VALUES (NOTICEFILE_SEQ.NEXTVAL,#{noticeNo}, #{fileName}, #{originalName} )
   	</insert>
   	
-  	 <insert id="setFileAdd" parameterType="NoticeFileDTO">
-    	INSERT INTO NOTICEFILE (FILENUM, NOTICENO, FILENAME, ORIGINALNAME)
-  		VALUES (NOTICE_SEQ.NEXTVAL, #{num},#{fileName}, #{originalName})
-  	</insert> 
+  	<insert id="setAdd" parameterType="NoticeDTO">
+  		<selectKey keyProperty="num" order="BEFORE" resultType="Long">
+  			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO	NOTICE 
+  		VALUES (#{num},	#{subject},	#{name},SYSDATE,0,#{contents}
+  			)
+  	</insert>
   	
-  	<select id="getDetail"  resultMap="getSelectResult" parameterType="NoticeDTO">  
+  	<select id="getDetail" resultMap="getSelectResult" parameterType="NoticeDTO">  
   		SELECT 
   			* 
   		FROM
@@ -70,34 +91,40 @@ WHERE R BETWEEN #{startRow} AND #{lastRow}
   		WHERE
   			N.NOTICENO=#{num}
   	</select>
-
   	
-  
-	<delete id="setDelete" parameterType="NoticeDTO">
-		DELETE 
-			NOTICE 
-		WHERE	
-			NOTICENO=#{num}
+  	<delete id="setDelete" parameterType="NoticeDTO">
+  		DELETE 
+  			NOTICE 
+  		WHERE 
+  			NOTICENO=#{num}
+  	</delete>
+  	
+  	<update id="setUpdate" parameterType="NoticeDTO">
+  		UPDATE 
+  			NOTICE
+  		SET 
+  			NOTICESUBJECT=#{subject},
+  			NOTICECONTENTS=#{contents}
+  		WHERE
+  			NOTICENO=#{num}
+  	</update>
+  	
+  	<update id="setHitCount">
+		UPDATE
+			NOTICE
+		SET
+			NOTICEHIT = NOTICEHIT + 1
+		WHERE
+			NOTICENO = #{noticeNo}
+	</update>
+	
+	<delete id="setFileDelete" parameterType="NoticeFileDTO">
+		DELETE NOTICEFILE WHERE FILENUM=#{fileNum}
 	</delete>
 	
-  	
- 	<update id="setUpdate" parameterType="NoticeDTO">
-		UPDATE NOTICE
-		SET
-		NOTICESUBJECT=#{subject}, 
-		NOTICECONTENTS=#{contents}
-		
-		WHERE 
-		NOTICENO=#{num}
-	</update>  
-	
-	
-	<update id="setHitCount">
-		UPDATE NOTICE SET
-		NOTICEHIT = NOTICEHIT + 1
-		WHERE
-		NOTICENO = #{num}
-	</update>
+	<select id="getFileDetail" parameterType="NoticeFileDTO" resultType="NoticeFileDTO">
+		SELECT FILENUM, FILENAME FROM NOTICEFILE WHERE FILENUM=#{fileNum}
+	</select>
 
-	
+
   </mapper>

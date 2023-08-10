@@ -9,23 +9,26 @@ public class MemberDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
-	// 이 네임스페이스는 클래스 내부에서만 쓰니까 private
 	private final String NAMESPACE="com.iu.main.member.MemberDAO.";
+	
+	public MemberDTO getIdCheck(MemberDTO memberDTO)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getIdCheck", memberDTO);
+	}
 	
 	public int setFileJoin(MemberFileDTO memberFileDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setFileJoin", memberFileDTO);
 	}
 	
 	public int setJoin(MemberDTO memberDTO)throws Exception{
-		return sqlSession.insert(NAMESPACE+"setJoin",memberDTO);
+		return sqlSession.insert(NAMESPACE+"setJoin", memberDTO);
 	}
 	
-	public MemberDTO getLogin(MemberDTO memberDTO) throws Exception{
+	public MemberDTO getLogin(MemberDTO memberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getLogin", memberDTO);
 	}
-
-	public int setMemberUpdate(MemberDTO memberDTO)throws Exception {
+	
+	public int setMemberUpdate(MemberDTO memberDTO)throws Exception{
 		return sqlSession.update(NAMESPACE+"setMemberUpdate", memberDTO);
-		
 	}
+
 }

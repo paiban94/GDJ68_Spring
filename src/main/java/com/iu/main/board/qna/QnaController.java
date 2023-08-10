@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.iu.main.board.BoardDTO;
-
+import com.iu.main.board.notice.NoticeDTO;
 import com.iu.main.util.Pager;
 
 @Controller
-@RequestMapping(value = "/qna/*")
+@RequestMapping("/qna/*")
 public class QnaController {
 	
 	@Autowired
@@ -29,30 +28,29 @@ public class QnaController {
 		return "qna";
 	}
 	
-
-	@RequestMapping(value ="list", method = RequestMethod.GET)
-	public String getList(Pager pager, Model model) throws Exception{
-		List<BoardDTO> ar = qnaService.getList(pager);
+	@RequestMapping(value = "list", method = RequestMethod.GET)
+	public String getList(Pager pager, Model model)throws Exception{
+		List<BoardDTO> ar =  qnaService.getList(pager);
 		model.addAttribute("list", ar);
-		model.addAttribute("pager",pager);
+		model.addAttribute("pager", pager);
 		return "board/list";
 	}
 	
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public String setAdd()throws Exception{
 		return "board/add";
-		}
+	}
+	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public String setAdd(QnaDTO qnaDTO, MultipartFile[] photos, HttpSession session)throws Exception{
-		int result =qnaService.setAdd(qnaDTO, photos, session);
+		int result = qnaService.setAdd(qnaDTO, photos, session);
 		return "redirect:./list";
-		}
+	}
 	
-	
-	@RequestMapping(value="detail", method = RequestMethod.GET)
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String setAdd(QnaDTO qnaDTO, Model model)throws Exception{
 		BoardDTO boardDTO = qnaService.getDetail(qnaDTO);
-		/* System.out.println(boardDTO.getContents()); */
+		System.out.println(boardDTO.getContents());
 		model.addAttribute("dto", boardDTO);
 		return "board/detail";
 	}
@@ -65,7 +63,7 @@ public class QnaController {
 	}
 	
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String setUpdate(BoardDTO noticeDTO, MultipartFile[] photos, HttpSession session)throws Exception{
+	public String setUpdate(NoticeDTO noticeDTO, MultipartFile[] photos, HttpSession session)throws Exception{
 		int result = qnaService.setUpdate(noticeDTO);
 		return "redirect:./list";
 	}
@@ -74,19 +72,19 @@ public class QnaController {
 	public String setAdd(QnaDTO qnaDTO)throws Exception{
 		int result =qnaService.setDelete(qnaDTO);
 		return "redirect:./list";
-	}
+	}	
 	
-	@RequestMapping(value="reply", method = RequestMethod.GET)
-	public String setReply(Long num, Model model) throws Exception{
+	@RequestMapping(value = "reply", method = RequestMethod.GET)
+	public String setReply(Long num, Model model)throws Exception{
 		model.addAttribute("num", num);
 		return "board/reply";
 	}
 	
-	@RequestMapping(value="reply", method = RequestMethod.POST)
-	public String setReply(QnaDTO qnaDTO, MultipartFile[] photos, HttpSession session) throws Exception{
+	@RequestMapping(value = "reply", method = RequestMethod.POST)
+	public String setReply(QnaDTO qnaDTO, MultipartFile[] photos, HttpSession session)throws Exception{
 		int result = qnaService.setReplyAdd(qnaDTO, photos, session);
 		return "board/reply";
-	}
+	}	
 	
 
 }

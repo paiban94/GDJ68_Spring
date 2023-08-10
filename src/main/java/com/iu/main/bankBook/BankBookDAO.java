@@ -20,6 +20,14 @@ public class BankBookDAO {
 	
 	private final String NAMESPACE="com.iu.main.bankBook.BankBookDAO.";
 	
+	//---Comment
+	public long getCommentTotal(CommentDTO commentDTO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getCommentList")
+	}
+	
+	public List<CommentDTO commentDTO> getCommentList(map<String, Object> map)throws Exception{
+			return sqlSession.selectList(NAMESPACE+"getCommentList", map);
+	}
 	//total
 	public Long getTotal(Pager pager)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getTotal", pager);

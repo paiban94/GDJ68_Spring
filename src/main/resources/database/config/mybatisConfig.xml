@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<!DOCTYPE configuration
-				  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-				  "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+<!DOCTYPE configuration
+	  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<!-- type에 적힌 패키지-파일 이름을 alias에 적힌 명칭으로 부르자 라는뜻 -->
-	<!--  보통 마지막에 적힌 클래스의 이름을 명칭으로 등록한다 -->
-	
-	<typeAliases >
+	<typeAliases>
+		
 		<typeAlias type="com.iu.main.bankBook.BankBookDTO" alias="BankBookDTO"/>
 		<typeAlias type="com.iu.main.bankBook.BankBookFileDTO" alias="BankBookFileDTO"/>
+		<typeAlias type="com.iu.main.bankBook.comment.CommentDTO" alias="CommentDTO"/>
+		
+		<typeAlias type="com.iu.main.bankBook.bookAccount.BookAccountDTO" alias="BookAccountDTO"/>
+		
 		<typeAlias type="com.iu.main.member.MemberDTO" alias="MemberDTO"/>
-		<typeAlias type="com.iu.main.member.MemberFileDTO" alias="MemberFileDTO"/>	
-		<typeAlias type="java.lang.Long" alias="Long"/>
+		<typeAlias type="com.iu.main.member.MemberFileDTO" alias="MemberFileDTO"/>
 		<typeAlias type="com.iu.main.board.notice.NoticeDTO" alias="NoticeDTO"/>
 		<typeAlias type="com.iu.main.board.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
+		<typeAlias type="com.iu.main.board.qna.QnaFileDTO" alias="QnaFileDTO"/>
 		<typeAlias type="com.iu.main.board.qna.QnaDTO" alias="QnaDTO"/>
-		<typeAlias type="java.util.List" alias="List"/>
 		<typeAlias type="com.iu.main.util.Pager" alias="Pager"/>
+		
+		<typeAlias type="java.lang.Long" alias="Long"/>
+		<typeAlias type="java.util.List" alias="List"/>
+		<typeAlias type="java.util.Map" alias="Map"/>
 	</typeAliases>
-
-
-
-</configuration>				  
-		  
+</configuration>	   

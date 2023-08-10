@@ -21,6 +21,17 @@ public class BankBookService {
 	@Autowired
 	private FileManager fileManager; //hdd저장
 	
+	//Comment
+		public List<CommentDTO> getCommentList(Pager pager, CommentDTO)
+		Map<String, Object> map = new HashMap<String, object>();
+		pager.makeRowNum();
+		pager.makePageNum(bankBookDAO.getCommentTotal(commentDTO));
+		map.put("pager",pager)
+		map.put("comment", commentDTO)
+		return bankBookDAO.getCommentList(map);
+	
+	//BankBook
+	
 	public List<BankBookDTO> getList (Pager pager) throws Exception{
 //		Map<String, Integer> map = new HashMap<String, Integer>();
 //		//page  	start 	lastrow

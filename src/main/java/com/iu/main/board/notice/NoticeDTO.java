@@ -9,6 +9,9 @@ import com.iu.main.board.BoardDTO;
 
 public class NoticeDTO extends BoardDTO  {
 
+	
+	private List<NoticeFileDTO> dtos;
+
 	public List<NoticeFileDTO> getDtos() {
 		return dtos;
 	}
@@ -17,5 +20,4 @@ public class NoticeDTO extends BoardDTO  {
 		this.dtos = dtos;
 	}
 
-	private List<NoticeFileDTO> dtos;
 }
