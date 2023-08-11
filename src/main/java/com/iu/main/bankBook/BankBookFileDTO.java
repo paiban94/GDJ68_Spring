@@ -3,7 +3,7 @@ package com.iu.main.bankBook;
 import com.iu.main.file.FileDTO;
 
 public class BankBookFileDTO extends FileDTO {
-
+	
 	private Long bookNum;
 
 	public Long getBookNum() {
@@ -13,4 +13,7 @@ public class BankBookFileDTO extends FileDTO {
 	public void setBookNum(Long bookNum) {
 		this.bookNum = bookNum;
 	}
+	
+	
+
 }

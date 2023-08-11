@@ -3,13 +3,15 @@ package com.iu.main.bankBook;
 import java.util.List;
 
 public class BankBookDTO {
-
+	
 	private Long bookNum;
 	private String bookName;
 	private String bookContents;
 	private Double bookRate;
 	private Integer bookSale;
 	private List<BankBookFileDTO> fileDTOs;
+	
+	
 	
 	public List<BankBookFileDTO> getFileDTOs() {
 		return fileDTOs;
@@ -47,4 +49,7 @@ public class BankBookDTO {
 	public void setBookSale(Integer bookSale) {
 		this.bookSale = bookSale;
 	}
+	
+	
+
 }

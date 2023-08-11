@@ -1,11 +1,15 @@
 package com.iu.main.bankBook.comment;
 
+import java.sql.Date;
+
 public class CommentDTO {
 	private Long commentNum;
 	private String id;
 	private Long bookNum;
 	private String commentContents;
 	private Date commentDate;
+	
+	
 	public Long getCommentNum() {
 		return commentNum;
 	}
@@ -38,4 +42,6 @@ public class CommentDTO {
 	}
 	
 	
+	
+
 }

@@ -42,25 +42,26 @@
 	<a class="btn btn-primary" href="../bookAccount/add?bookNum=${dto.bookNum}">상품가입</a>
 	<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#accountModal">상품가입</button>
 
-	<!-- 댓글  -->
+	<!-- 댓글 -->
 	<div>
-
 		<div class="mb-3">
 			<textarea name="accountPassword" class="form-control" id="comment"></textarea>
+			<button id="commentAdd">댓글등록</button>
 		</div>
 
-		<div >
+		<div>
 			<table id="commentList">
-			
+				
 			</table>
 
+			<div id="more">
+				
+			</div>
 
 		</div>
-
 
 
 	</div>
-
 
 
 
@@ -96,33 +97,78 @@
 --%>
 
 	<script src="../resources/js/delete.js"></script>
-
 	<!-- <script>
 		setBookNum(${dto.bookNum});
 	</script> -->
 	
 	<script type="text/javascript">
+		let bn=$("#add").attr("data-add-num");
+		let pageNum=1;
+		let tp=0;
 
-		
+
+		$("#commentAdd").click(function(){
+			let contents =$("#comment").val();
+			$.ajax({
+				type:'POST',
+				url:'commentAdd',
+				data:{
+					bookNum:bn,
+					commentContents:contents
+				},
+				success:function(result){
+					if(result.trim()>0){
+						alert('댓글등록 OK');
+						$("#commentList").empty();
+						$("#comment").val("");
+						pageNum=1;
+						getCommentList(bn, 1);
+					}
+
+				}
+			});
+
+
+
+		});
+
+		$("#more").on("click","#moreButton" ,function(){
+			
+			if(pageNum>=tp){
+				alert('마지막 페이지');
+				return;
+			}
+
+			pageNum++;
+			getCommentList(bn, pageNum);
+		})
+
+		getCommentList(bn, pageNum);
+
 		function getCommentList(bookNum, page){
 			$.ajax({
 				type:"get",
-				url:"./commentList",
+				url: "./commentList",
 				data:{
 					bookNum:bookNum,
 					page:page
 				},
 				success:function(result){
 					$("#commentList").append(result);
+					tp=$("#totalPage").attr("data-totalPage");
+					let button = '<button id="moreButton">더보기('+pageNum+'/'+tp+')</button>'
+					console.log(result)
+					$("#more").html(button);
 				},
 				error:function(){
 					alert("관리자에게 문의")
 				}
 			});
 		}
-		
-		
-		//const add = document.getElementById("add");
+
+
+
+		// const add = document.getElementById("add");
 
 		// add.addEventListener("click", function(){
 		// 	let bookNum=add.getAttribute("data-add-num");
@@ -131,92 +177,91 @@
 		// 	ajax2(bookNum,pw);
 
 		// });
-
-		$("add").click(function(){
-
-			let bookNum=("#add").attr("data-add-num")
+		
+		$("#add").click(function(){
+			let bookNum=$("#add").attr("data-add-num");
 			let pw=$("#pw").val();
-			ajax3(bookNum, pw)
-		})
+			ajax3(bookNum, pw);
+		});
 
 		function ajax3(bookNum, pw){
 			$.ajax({
 				type:"get",
-				url:"../bookAccount/add"
+				url:"../bookAccount/add",
 				data:{
 					bookNum:bookNum,
 					accountPassword:pw
 				},
 				success:function(response){
 					if(response.trim()>0){
-						alert("가입성공");
-					}else{
-						alert("가입실패");
+						alert("가입 성공");
+					}else {
+						alert("가입 실패");
 					}
 				},
 				error:function(){
-					alert("관리자한테 문의")
+					alert("관리자에게 문의")
+				}
+			})
+
+		}
+
+/*
+		function ajax2(bookNum, pw){
+			fetch("../bookAccount/add", {
+				method:"post",
+				body:"bookNum="+bookNum+"&accountPassword="+pw,
+				headers:{
+					"content-type":"application/x-www-form-urlencoded"
+				}
+			})
+			.then((response)=>{
+				return response.text();
+			})
+			.then((r)=>{
+				if(r>0){
+					alert("가입 완료");
+				}else {
+					alert("가입 실패");
 				}
 
+				location.href="../"
 			})
-			}
+			;
+		}
 
-
-		// function ajax2(bookNum, pw){
-		// 	fetch("../bookAccount/add", {
-		// 		method:"post",
-		// 		body:"bookNum="+bookNum+"&accountPassword="+pw,
-		// 		headers:{
-		// 			"content-type":"application/x-www-form-urlencoded"
-		// 		}
-		// 	})
-		// 	.then((response)=>{
-		// 		return response.text();
-		// 	})
-		// 	.then((r)=>{
-		// 		if(r>0){
-		// 			alert("가입 완료");
-		// 		}else {
-		// 			alert("가입 실패");
-		// 		}
-
-		// 		location.href="../"
-		// 	})
-		// 	;
-		// }
-
-		// function ajax1(bookNum, pw){
+		function ajax1(bookNum, pw){
 			
-		// 	//1. 
-		// 	let xhttp = new XMLHttpRequest();
+			//1. 
+			let xhttp = new XMLHttpRequest();
 
-		// 	//2. 요청 정보
-		// 	xhttp.open("post", "../bookAccount/add");
+			//2. 요청 정보
+			xhttp.open("post", "../bookAccount/add");
 
-		// 	//요청 header 정보
-		// 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			//요청 header 정보
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-		// 	//요청 발생(post일 경우 파라미터 작성 key=값&key2=값2)
-		// 	xhttp.send("bookNum="+bookNum+"&accountPassword="+pw);
+			//요청 발생(post일 경우 파라미터 작성 key=값&key2=값2)
+			xhttp.send("bookNum="+bookNum+"&accountPassword="+pw);
 
-		// 	//응답 처리
-		// 	xhttp.onreadystatechange=function(){
-		// 		if(this.readyState==4&&this.status==200){
-		// 			let r = this.responseText.trim();
-		// 			document.getElementById("close").click();
-		// 			console.log(r);
-		// 			if(r>0){
-		// 				alert("가입 성공");
-		// 			}else {
-		// 				alert("가입 실패");
-		// 			}
+			//응답 처리
+			xhttp.onreadystatechange=function(){
+				if(this.readyState==4&&this.status==200){
+					let r = this.responseText.trim();
+					document.getElementById("close").click();
+					console.log(r);
+					if(r>0){
+						alert("가입 성공");
+					}else {
+						alert("가입 실패");
+					}
 
 
-		// 			location.href="../";
-		// 		}
-		// 	}
-		// }
-	
+					location.href="../";
+				}
+			}
+		}
+	*/
 	</script>
 
 </body>

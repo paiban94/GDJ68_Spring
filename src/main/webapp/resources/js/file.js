@@ -33,84 +33,87 @@ for(del of delets){
 
 let max=5;
 let count=0;
+
+
 if(delets != null){
     count=delets.length;
     alert(count);
 }
 
 let idx=0;
-
-// fileList.addEventListener("click", function(event){
-//     console.log(event.target);
-//     let cl = event.target.classList;
-//     if(event.target.classList.contains("df")){
-//         let deleteId = event.target.getAttribute("data-id");
-//         document.getElementById(deleteId).remove();
-//          count--;
-//     }
-// })
-
-//jquery
+/*
+fileList.addEventListener("click", function(event){
+    console.log(event.target);
+    let cl = event.target.classList;
+    if(event.target.classList.contains("df")){
+        let deleteId = event.target.getAttribute("data-id");
+        document.getElementById(deleteId).remove();
+         count--;
+    }
+})
+*/
 $("#fileList").on("click", ".df", function(){
     // let deleteId=$(this).attr("data-id")
     // $("#"+deleteId).remove();
     $(this).parent().remove();
-
     count--;
 })
 
 
-// add.addEventListener("click", function(){
 
-//     if(count>=max){
-//         alert("최대 5개만 가능");
-//         return;
-//     }
-//     count++;
-//     //div
-//     let d = document.createElement("div");      //<div></div>
-//     let a = document.createAttribute("class");  // class=
-//     a.value="input-group mb-3";                 //class="input-group mb-3"
-//     d.setAttributeNode(a);                      //<div class="input-group mb-3">
-//     a = document.createAttribute("id");
-//     a.value="file"+idx;
-//     d.setAttributeNode(a);
+/*
+add.addEventListener("click", function(){
+
+    if(count>=max){
+        alert("최대 5개만 가능");
+        return;
+    }
+    count++;
+    //div
+    let d = document.createElement("div");      //<div></div>
+    let a = document.createAttribute("class");  // class=
+    a.value="input-group mb-3";                 //class="input-group mb-3"
+    d.setAttributeNode(a);                      //<div class="input-group mb-3">
+    a = document.createAttribute("id");
+    a.value="file"+idx;
+    d.setAttributeNode(a);
    
-//     //input
-//     let i = document.createElement("input");
-//     a = document.createAttribute("type");
-//     a.value="file";
-//     i.setAttributeNode(a);
-//     a = document.createAttribute("class")
-//     a.value="form-control";
-//     i.setAttributeNode(a);
+    //input
+    let i = document.createElement("input");
+    a = document.createAttribute("type");
+    a.value="file";
+    i.setAttributeNode(a);
+    a = document.createAttribute("class")
+    a.value="form-control";
+    i.setAttributeNode(a);
 
-//     a = document.createAttribute("id")
-//     a.value="photos";
-//     i.setAttributeNode(a);
+    a = document.createAttribute("id")
+    a.value="photos";
+    i.setAttributeNode(a);
 
-//     a = document.createAttribute("name")
-//     a.value="photos";
-//     i.setAttributeNode(a);
+    a = document.createAttribute("name")
+    a.value="photos";
+    i.setAttributeNode(a);
 
-//     d.appendChild(i);
+    d.appendChild(i);
 
-//     let s = document.createElement("span");
-//     let t = document.createTextNode("X");
-//     a = document.createAttribute("class");
-//     a.value="df";
-//     s.setAttributeNode(a);
-//     s.appendChild(t);
+    let s = document.createElement("span");
+    let t = document.createTextNode("X");
+    a = document.createAttribute("class");
+    a.value="df";
+    s.setAttributeNode(a);
+    s.appendChild(t);
 
-//     a = document.createAttribute("data-id");
-//     a.value="file"+idx;
+    a = document.createAttribute("data-id");
+    a.value="file"+idx;
 
-//     s.setAttributeNode(a);
-//     d.appendChild(s);
+    s.setAttributeNode(a);
+    d.appendChild(s);
 
-//     fileList.appendChild(d);
-//     idx++;
-// })
+    fileList.appendChild(d);
+    idx++;
+})
+*/
 
 //jquery로 변경
 $("#add").click(function(){
@@ -118,15 +121,14 @@ $("#add").click(function(){
         alert("최대 5개만 가능");
         return;
     }
-    count++
+    count++;
 
-    let r = '<div class="imnput-group mb-3" id="file'+idx+'">'
+    let r = '<div class="input-group mb-3" id="file'+idx+'">'
     r = r+'<input type="file" class="form-control" id="photos" name="photos">'
-    r = r+'<span class="df" data-id="file'+idx+'">X</sapn>'
-
+    r = r+ '<span class="df" data-id="file'+idx+'">X</span>'
     r= r+"</div>";
+    idx++;
 
     $("#fileList").append(r);
 
-
-})
+});
