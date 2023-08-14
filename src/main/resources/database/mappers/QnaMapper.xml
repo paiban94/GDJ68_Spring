@@ -123,7 +123,7 @@
 	  		DELETE 
 	  			QNABOARD 
 	  		WHERE 
-	  			QNANUM=#{num}
+	  			QNANUM=#{num} AND QNANAME=#{name}
 	  	</delete>
 	  	
 	  	

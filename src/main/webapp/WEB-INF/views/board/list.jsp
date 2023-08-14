@@ -71,9 +71,9 @@
 			  </div>
 		</form>
 	</div>
-			
+		<c:if test="${not empty member}">	
 		<a class="btn btn-outline-warning" for="btn-check-outlined" href="./add">글쓰기</a>
-		
+		</c:if>
 		<%-- 
 		<c:forEach begin="1" end="10" step="2" var="num">
 			<h1>${num}</h1>

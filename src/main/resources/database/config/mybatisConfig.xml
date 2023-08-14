@@ -14,6 +14,9 @@
 		
 		<typeAlias type="com.iu.main.member.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.iu.main.member.MemberFileDTO" alias="MemberFileDTO"/>
+		<typeAlias type="com.iu.main.member.RoleDTO" alias="RoleDTO"/>
+		
+		
 		<typeAlias type="com.iu.main.board.notice.NoticeDTO" alias="NoticeDTO"/>
 		<typeAlias type="com.iu.main.board.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
 		<typeAlias type="com.iu.main.board.qna.QnaFileDTO" alias="QnaFileDTO"/>

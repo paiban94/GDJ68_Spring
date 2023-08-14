@@ -8,6 +8,15 @@
  	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Insert title here</title>
 
+	<c:if test="${empty member}">
+		<script type="text/javascript">
+		alert("로그인 하세요');
+		location.href="../member/login";
+		</script>
+	
+	</c:if>
+	
+
 	<c:import url="../temp/bootStrap.jsp"></c:import>
 	
 	  <!-- include summernote css/js-->
